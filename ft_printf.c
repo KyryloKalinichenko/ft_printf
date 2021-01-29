@@ -1,67 +1,98 @@
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
-void	ft_putchar(char c)
+int ctr;
+
+void	ft_putchar(char a)
 {
-	write(1, &c, 1);
+	write(1, &a, 1);
+	ctr++;
 }
 
-static void	ft_putnbr(int n)
+int	ft_isflag(char *s)
 {
 	int i;
-	
-	i = 1;
-	if (n < 0)
-	{
-		i = -1;
-		n *= -1;
-	}
-	if (n > 9)
-	{
-		ft_putnbr((n - (n % 10)) / 10);
-		ft_putchar(48 + (n % 10));
-	}
-	if (n > -1 && n < 10)
-		ft_putchar(48 + n);
+	const char a[4] = "-.*";
 
+	i = -1;
+	while(a[++i])
+	{
+		if (a[i] == *s)
+			return (1);
+	}
+	return (0);
 }
 
-void	ft_putstr(char *s)
+int	ft_isconv(const char *b)
 {
-	while(*s)
-		ft_putchar(*s++);
+	const char a[9] = "dicspuxX\0";
+	int i;
+
+	if (b)
+	{
+		i = -1;
+		while (a[++i])
+		{
+			if (a[i] == *b)
+				return(1);
+		}
+	}
+	return (0);
+}
+
+void	ft_itisconv(char a, va_list lst, t_key *v)
+{
+	long long i;
+	char *s;
+
+	if (a == 'd' || a == 'i')
+	{
+		if (0 > (i = va_arg(lst, int)))
+		{
+			v->neg = 1;
+			i *= -1;
+		}
+		if(!(v->res = ft_itoa(i, 10)))
+			return ;
+	}
+	else if (a == 'c')
+	{
+		if(!(v->res = ft_calloc(2, a)))
+			return ;
+		v->res[0] = va_arg(lst, int);
+	}
+	else if (a == 's')
+	{
+		if(!(s = ft_strdup((va_arg(lst, char *)))))
+			return ;
+		v->res = s;
+	}
+	else if (a == 'x' || a == 'X' || a == 'p' || a == 'u')
+		ft_print_ptr(va_arg(lst, int), a, v);
 }
 
 int	ft_printf(const char *s, ...)
 {
 	va_list lst;
-	int i;
-	int p;
+	static t_key *v;
 
-	va_start(lst, s); 
-	p = -1;
+	ctr = 0;
+	va_start(lst, s);
+	if (!s || !(v = malloc(sizeof(t_key))))
+		return (0);
 	while (*s)
 	{
-		if (*s++ == '%')
+		ft_load(v);
+		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
-			if (*s == 'd' || *s == 'i')
-				ft_putnbr(va_arg(lst, int));
-			else if (*s == 'c')
-				ft_putchar(va_arg(lst, int));
-			else if (*s == 's')
-				ft_putstr(va_arg(lst, char *));
+			s = ft_percent(v, (char*)s, lst);
+			if (v->res)
+				free(v->res);
 		}
 		else
-			write(1, --s, 1);
+			ft_putchar(*s);
 		s++;
 	}
+	free(v);
 	va_end(lst);
-	return (0);
-
-}
-
-int	main()
-{
-	ft_printf("Hey %s lnlbn", "lol");
+	return (ctr);
 }
