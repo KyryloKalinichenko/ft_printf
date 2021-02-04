@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include <stdio.h>
 
 void    ft_rjustify(t_key *v, int k, int p)
 {
@@ -50,7 +51,8 @@ void	ft_star(t_key *v)
 	if (v)
 	{
 		len = ft_strlen(v->res);
-		k = v->diff2 - len;
+		//printf("-----%s----", v->res);
+        k = v->diff2 - len;
 		if (v->diff2 == 0 && !ft_strcmp("0", v->res))
 			p = v->diff;
 		else

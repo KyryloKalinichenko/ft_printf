@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include <stdio.h>
 
 int ctr;
 
@@ -62,8 +63,10 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 	}
 	else if (a == 's')
 	{
+	//	s = va_arg(lst, char *);
+	//	printf("---%s---", s);
 		if(!(s = ft_strdup((va_arg(lst, char *)))))
-			return ;
+			s = NULL;
 		v->res = s;
 	}
 	else if (a == 'x' || a == 'X' || a == 'p' || a == 'u')
@@ -73,7 +76,7 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 int	ft_printf(const char *s, ...)
 {
 	va_list lst;
-	static t_key *v;
+	t_key *v;
 
 	ctr = 0;
 	va_start(lst, s);
@@ -85,6 +88,7 @@ int	ft_printf(const char *s, ...)
 		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
 			s = ft_percent(v, (char*)s, lst);
+			//ft_putstr(v->res);
 			if (v->res)
 				free(v->res);
 		}

@@ -12,6 +12,11 @@ static char	*ft_flag(char *s, t_key *v)
 		v->fl2 = 1;
 		s++;
 	}
+	if (*s == '-' || *s == '0')
+	{
+		while(*s == '-' || *s == '0')
+			s++;
+	}
 	return (s);
 }
 
@@ -39,11 +44,11 @@ char	*ft_percent(t_key *v, char *s, va_list lst)
 	}
 	if (ft_isconv(s = ft_skipnum((char*)s)) || ft_isconv((char*)++s))
 		ft_itisconv(*ft_skipall((char*)s), lst, v);
-	else if (ft_isconv((char*)s))
-		ft_itisconv(*s, lst, v);
 	if (*ft_skipall((char*)s) == 's')
 		ft_strprint(v);
 	else
+	{
 		ft_star(v);
+	}
 	return(s = ft_skipall((char*)s));
 }

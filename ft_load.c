@@ -10,6 +10,7 @@ void	ft_load(t_key *v)
 		v->diff2 = 1;
 		v->neg = 0;
 		v->fl3 = 0;
+	//	v->fl4 = 0;
 		v->res = NULL;
 	}
 }
@@ -42,7 +43,7 @@ int	ft_printsp(char *s, va_list lst)
 		free(str);
 		return (i);
 	}
-	else if (*s == '*')
+	else if (s && *s == '*')
 		i = va_arg(lst, int);
 	return (i);
 }

@@ -86,6 +86,7 @@ typedef struct		s_key
 	int			fl;
 	int			fl2;
 	int			fl3;
+	//int			fl4;
 	int			diff;
 	int			diff2;
 	int			neg;
