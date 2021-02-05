@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 16:42:03 by kkalinic          #+#    #+#             */
+/*   Updated: 2021/02/05 17:36:48 by kkalinic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "ft_printf.h"
 
 static void     ft_p(t_key *v, long int addr)
@@ -8,12 +19,6 @@ static void     ft_p(t_key *v, long int addr)
 	if (!(v->res = ft_strjoin(v->res, tmp = ft_itoa(addr, 16))))
         return ;
 	free(tmp);
-	if (ft_strcmp(v->res, "0x0") == 0)
-		{
-			free (v->res);
-			if (!(v->res = ft_strdup("(nil)")))
-                return ;
-		}
 }
 
 static void    ft_reg(char a, char *s)

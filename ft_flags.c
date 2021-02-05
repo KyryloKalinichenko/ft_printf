@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 17:33:45 by kkalinic          #+#    #+#             */
+/*   Updated: 2021/02/05 18:07:28 by kkalinic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdio.h>
 
@@ -34,14 +45,10 @@ int	ft_printdot(char *s, va_list a, t_key *v)
 
 static void		ft_printres(t_key *v, int p, int w)
 {
-	//printf("///%i///", w);
 	if (v->fl)
 			{
-				if (v->fl3 == 1 && p >= 0 && v->res)
+				if (v->fl3 == 1 && p >= 0/* && v->res*/)
 					ft_putstrlm(v->res, p);
-				else if (!v->res && (!v->fl3 ||
-									 (p >= 6 || p < 0)))
-					ft_putstr("(null)");
 				else 
 					ft_putstr(v->res);
 				while (w-- > 0)
@@ -51,11 +58,8 @@ static void		ft_printres(t_key *v, int p, int w)
 			{
 				while (w-- > 0)
 					ft_putchar(' ');
-				if (v->fl3 == 1 && p >= 0 && v->res)
+				if (v->fl3 == 1 && p >= 0 /*&& v->res*/)
 					ft_putstrlm(v->res, p);
-				else if (!v->res && (!v->fl3 ||
-								 (p >= 6 || p < 0)))
-					ft_putstr("(null)");
 				else
 					ft_putstr(v->res);
 			}
@@ -69,15 +73,14 @@ void	ft_strprint(t_key *v)
 
 	if (v)
 	{
-		if (v->res)
-			len = ft_strlen(v->res);
-		else
-			len = 6;
+		if (!v->res)
+			v->res = ft_strdup("(null)");
+		len = ft_strlen(v->res);
 		p = v->diff2;
 		w = v->diff;
 		if (v->fl3 == 1 && p > 0)
 		{
-			if (p <= len && v->res)
+			if (p <= len)
 				w -= p;
 			else if (len < p)
 				w -= len;
@@ -86,6 +89,4 @@ void	ft_strprint(t_key *v)
 				w -= len;
 		ft_printres(v, p, w);
 	}
-	//else if (v && !(v->res))
-	//	ft_putstr("(null)");
 }

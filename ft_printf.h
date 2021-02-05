@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:03:17 by kkalinic          #+#    #+#             */
-/*   Updated: 2020/11/30 15:53:38 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/05 18:03:53 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct		s_key
 	int			fl;
 	int			fl2;
 	int			fl3;
-	//int			fl4;
 	int			diff;
 	int			diff2;
 	int			neg;

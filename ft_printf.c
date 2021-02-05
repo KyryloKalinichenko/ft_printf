@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 17:37:44 by kkalinic          #+#    #+#             */
+/*   Updated: 2021/02/05 18:18:10 by kkalinic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include <stdio.h>
 
@@ -59,12 +71,16 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 	{
 		if(!(v->res = ft_calloc(2, a)))
 			return ;
-		v->res[0] = va_arg(lst, int);
+		/*if(!(v->res[0] = va_arg(lst, int)))
+			v->res[0] = '\0';*/
+		if(0 == (int)(a = va_arg(lst, int)))
+		{
+			free(v->res);
+			v->res = NULL;
+		}
 	}
 	else if (a == 's')
 	{
-	//	s = va_arg(lst, char *);
-	//	printf("---%s---", s);
 		if(!(s = ft_strdup((va_arg(lst, char *)))))
 			s = NULL;
 		v->res = s;
@@ -88,7 +104,6 @@ int	ft_printf(const char *s, ...)
 		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
 			s = ft_percent(v, (char*)s, lst);
-			//ft_putstr(v->res);
 			if (v->res)
 				free(v->res);
 		}
