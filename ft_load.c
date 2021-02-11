@@ -22,6 +22,10 @@ void	ft_load(t_key *v)
 		v->neg = 0;
 		v->fl3 = 0;
 		v->res = NULL;
+		v->space = 0;
+		v->zerch = 0;
+		v->plus = 0;
+		v->hash = 0;
 	}
 }
 

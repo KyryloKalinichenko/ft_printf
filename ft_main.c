@@ -65,19 +65,35 @@ int     main()
         printf("\n----------------\n");
         printf(" --- Return : %d\n", printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
 	 ft_printf(" --- Return : %d\n", ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
-      */  printf("\n----------------\n");
+        printf("\n----------------\n");
 
       //ft_printf("%s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s\n", NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
 
    
- /*       printf("\n----------------\n");
+        printf("\n----------------\n");
         // ^ Theoriquement un comportement indefini mais testé par la moulinette
         printf(" --- Return : %d\n", printf("(null)"));
         ft_printf(" --- Return : %d\n", ft_printf("(null)"));
 	printf("\n----------------\n");
         printf(" --- Return : %d\n", printf(""));
-        ft_printf(" --- Return : %d\n", ft_printf(""));*/
-	ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
-    //printf("\n----------------\n");
-	printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
+        ft_printf(" --- Return : %d\n", ft_printf(""));
+        	ft_printf("It is my  : %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
+    printf("\n----------------\n");
+	printf("It is orig: %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
+*/
+        int lol;
+
+        lol = -10;
+        lol /= 1;
+                printf("%#x\n", lol);
+                printf("%#x\n", lol);
+        lol = (int)lol;
+                ft_printf("%#X\n", d);
+                printf("%#X\n", d);
+       /* while((lol = lol % (float)0.1))
+        {
+                printf("%f\n", lol);
+                lol *= 10;
+        }*/
+
 }

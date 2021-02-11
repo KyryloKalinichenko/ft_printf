@@ -10,24 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
+#include <stdio.h>
 
 static char	*ft_flag(char *s, t_key *v)
 {
-	if (*s == '-')
+	while(s && (*s == '-' ||
+		 *s == '0' || *s == '+' || *s == ' ' || *s == '#'))
 	{
-		v->fl = 1;
-		s++;
-	}
-	if (*s == '0' && v->fl == 0)
-	{
-		v->fl2 = 1;
-		s++;
-	}
-	if (*s == '-' || *s == '0')
-	{
-		while(*s == '-' || *s == '0')
+		if (*s == '+' && !v->plus)
+		{
+			v->plus = 1;
+			s++;
+		}
+		else if (*s == '#')
+		{
+			v->hash = 1;
+			s++;
+		}
+		else if (*s == ' ' && !v->space)
+		{
+			v->space = 1;
+			s++;
+		}
+		else if (*s == '-' && !v->fl)
+		{
+			v->fl = 1;
+			s++;
+		}
+		else if (*s == '0' && !v->fl)
+		{
+			v->fl2 = 1;
+			s++;
+		}
+		else
 			s++;
 	}
+	//printf("//%s///", s);
+	if (v->plus)
+		v->space = 0;
+	if (v->fl)
+		v->fl2 = 0;
 	return (s);
 }
 
@@ -43,6 +65,12 @@ static void	ft_width(t_key *v, va_list lst, char *s)
 
 char	*ft_percent(t_key *v, char *s, va_list lst)
 {
+	v->a = *ft_skipall(s);
+	if (v->a == 'n')
+	{
+		ft_itisconv(v->a, lst, v);
+		return (ft_skipall(s));
+	}
 	s = ft_flag(s, v);
 	if (ft_isdigit(*s) || *s == '*')
 		ft_width(v, lst, s);
@@ -54,12 +82,10 @@ char	*ft_percent(t_key *v, char *s, va_list lst)
 			v->fl2 = 0;
 	}
 	if (ft_isconv(s = ft_skipnum((char*)s)) || ft_isconv((char*)++s))
-		ft_itisconv(*ft_skipall((char*)s), lst, v);
-	if (*ft_skipall((char*)s) == 's')
+		ft_itisconv(v->a, lst, v);
+	if (v->a == 's')
 		ft_strprint(v);
 	else
-	{
 		ft_star(v);
-	}
-	return(s = ft_skipall((char*)s));
+	return(ft_skipall((char*)s));
 }

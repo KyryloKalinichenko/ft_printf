@@ -24,7 +24,7 @@ void	ft_putchar(char a)
 int	ft_isflag(char *s)
 {
 	int i;
-	const char a[4] = "-.*";
+	const char a[9] = "-. *0+#\0";
 
 	i = -1;
 	while(a[++i])
@@ -37,7 +37,7 @@ int	ft_isflag(char *s)
 
 int	ft_isconv(const char *b)
 {
-	const char a[9] = "dicspuxX\0";
+	const char a[10] = "dincspuxX\0";
 	int i;
 
 	if (b)
@@ -67,17 +67,14 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 		if(!(v->res = ft_itoa(i, 10)))
 			return ;
 	}
+	else if (a == 'n')
+		*(va_arg(lst, int*)) = ctr;
 	else if (a == 'c')
 	{
-		if(!(v->res = ft_calloc(2, a)))
+		if(!(v->res = ft_calloc(2, sizeof(char))))
 			return ;
-		/*if(!(v->res[0] = va_arg(lst, int)))
-			v->res[0] = '\0';*/
-		if(0 == (int)(a = va_arg(lst, int)))
-		{
-			free(v->res);
-			v->res = NULL;
-		}
+		v->res[0] = (a = va_arg(lst, int));
+		v->zerch = 1;
 	}
 	else if (a == 's')
 	{
@@ -103,6 +100,7 @@ int	ft_printf(const char *s, ...)
 		ft_load(v);
 		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
+		//	printf("%s\n", (char*)s);
 			s = ft_percent(v, (char*)s, lst);
 			if (v->res)
 				free(v->res);

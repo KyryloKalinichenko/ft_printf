@@ -13,32 +13,50 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
+static	void	ft_res(t_key *v)
+{
+	if (v->zerch)
+		ft_putchar(v->res[0]);
+	else
+		ft_putstr(v->res);
+}
+
+static void	ft_printsg(t_key *v)
+{
+	if (v->neg)
+		ft_putchar('-');
+	else if (v->plus)
+		ft_putchar('+');
+	else if (v->space)
+		ft_putchar(' ');
+}
+
 void    ft_rjustify(t_key *v, int k, int p)
 {
     if (v->neg == 1)
 			p--;
-	if (v->fl2 == 1 && v->neg == 1 && v->diff2 != 0)
-    		ft_putchar('-');
+	if (v->fl2 == 1 && v->diff2 != 0)
+    		ft_printsg(v);
 	while (0 < p--)
 		ft_putchar(v->a);
-	if (v->neg == 1 && (v->fl2 == 0 || v->diff2 == 0))
-		ft_putchar('-');
+	if (v->fl2 == 0 || v->diff2 == 0)
+		ft_printsg(v);
 	if (v->fl3 == 1)
 	{	
 		while (k-- > 0)
 			ft_putchar('0');
 		if (0 != ft_strcmp("0", v->res) || v->diff2 != 0)
-			ft_putstr(v->res);
+			ft_res(v);
 	}
 	else
-		ft_putstr(v->res);
+		ft_res(v);
 }
 
 void	ft_ljustify(t_key *v, int k, int p)
 {
-    if (v->neg == 1)
+    if (v->neg || v->plus)
 	{
-		ft_putchar('-');
+		ft_printsg(v);
 		p--;
 	}
 	if (v->fl3 == 1)
@@ -46,10 +64,10 @@ void	ft_ljustify(t_key *v, int k, int p)
 		while (k-- > 0)
 			ft_putchar('0');
 		if (0 != ft_strcmp("0", v->res) || v->diff2 != 0)
-			ft_putstr(v->res);
+			ft_res(v);
 	}
 	else
-		ft_putstr(v->res);
+		ft_res(v);
 	while (0 < p--)
 		ft_putchar(v->a);
 }
@@ -62,6 +80,7 @@ void	ft_star(t_key *v)
 
 	if (v)
 	{
+		//printf("---%i---", v->zerch);
 		len = ft_strlen(v->res);
         k = v->diff2 - len;
 		if (v->diff2 == 0 && !ft_strcmp("0", v->res))

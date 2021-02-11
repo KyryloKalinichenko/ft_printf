@@ -17,6 +17,24 @@
 # include <unistd.h>
 # include <stdarg.h>
 
+
+typedef struct		s_key
+{
+	char			*res;
+	int			fl;
+	int			fl2;
+	int			fl3;
+	int			diff;
+	int			diff2;
+	int			neg;
+	char		a;
+	int			zerch;
+	int			plus;
+	int			space;
+	int			hash;
+
+}					t_key;
+
 void				*ft_memset(void *dest, int val, size_t len);
 void				ft_bzero(void *to, size_t count);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
@@ -80,17 +98,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct		s_key
-{
-	char			*res;
-	int			fl;
-	int			fl2;
-	int			fl3;
-	int			diff;
-	int			diff2;
-	int			neg;
-	char		a;
-}					t_key;
 
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
