@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:35:26 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/05 17:35:38 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/11 15:34:26 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -26,6 +26,7 @@ void	ft_load(t_key *v)
 		v->zerch = 0;
 		v->plus = 0;
 		v->hash = 0;
+		v->sh = 0;
 	}
 }
 

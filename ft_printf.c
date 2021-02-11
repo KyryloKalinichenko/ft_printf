@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:37:44 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/05 18:18:10 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/11 16:56:18 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_putchar(char a)
 int	ft_isflag(char *s)
 {
 	int i;
-	const char a[9] = "-. *0+#\0";
+	const char a[11] = "-. *0+#h\0";
 
 	i = -1;
 	while(a[++i])
@@ -59,8 +59,12 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 
 	if (a == 'd' || a == 'i')
 	{
-		if (0 > (i = va_arg(lst, int)))
-		{
+		if (v->sh)
+			i = (short int)va_arg(lst, int);
+		else
+			i = va_arg(lst, int);
+		if (i < 0)
+		{	
 			v->neg = 1;
 			i *= -1;
 		}
@@ -82,8 +86,14 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 			s = NULL;
 		v->res = s;
 	}
-	else if (a == 'x' || a == 'X' || a == 'p' || a == 'u')
-		ft_print_ptr(va_arg(lst, int), a, v);
+	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
+	{
+		if (v->sh && a != 'p')
+			i = (short unsigned int)va_arg(lst, int);
+		else
+			i = va_arg(lst, int);
+		ft_print_ptr(i, a, v);
+	}
 }
 
 int	ft_printf(const char *s, ...)
@@ -100,7 +110,6 @@ int	ft_printf(const char *s, ...)
 		ft_load(v);
 		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
-		//	printf("%s\n", (char*)s);
 			s = ft_percent(v, (char*)s, lst);
 			if (v->res)
 				free(v->res);

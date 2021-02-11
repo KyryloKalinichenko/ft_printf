@@ -77,23 +77,22 @@ int     main()
 	printf("\n----------------\n");
         printf(" --- Return : %d\n", printf(""));
         ft_printf(" --- Return : %d\n", ft_printf(""));
-        	ft_printf("It is my  : %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
+        	ft_printf("It is my  : %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %:5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
     printf("\n----------------\n");
 	printf("It is orig: %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
 */
         int lol;
 
-        lol = -10;
-        lol /= 1;
-                printf("%#x\n", lol);
-                printf("%#x\n", lol);
-        lol = (int)lol;
-                ft_printf("%#X\n", d);
-                printf("%#X\n", d);
-       /* while((lol = lol % (float)0.1))
+        lol = 45;
+  //              printf("%d\n", (char)0);
+    //            ft_printf("%c\n", (char)0);
+       // lol = (int)lol;
+              ft_printf("42%20.20hd42\n", 1477189484);
+                printf("42%20.20hd42\n", 1477189484);
+       /* while(lol++ != 100)
         {
-                printf("%f\n", lol);
-                lol *= 10;
+			printf("Orig: %hx\n", lol);
+			ft_printf("Mine: %hx\n", lol);
         }*/
 
 }

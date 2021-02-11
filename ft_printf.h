@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:03:17 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/05 18:03:53 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:55:31 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_key
 	int			plus;
 	int			space;
 	int			hash;
+	int			sh;
 
 }					t_key;
 

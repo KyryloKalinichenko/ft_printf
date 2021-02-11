@@ -6,7 +6,7 @@
 #    By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 09:54:41 by kkalinic          #+#    #+#              #
-#    Updated: 2021/02/05 17:50:49 by kkalinic         ###   ########.fr        #
+#    Updated: 2021/02/11 16:08:02 by kkalinic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
 
 SRC = 		ft_atoi.c \
 		ft_isdigit.c \
