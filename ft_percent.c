@@ -85,9 +85,19 @@ char	*ft_percent(t_key *v, char *s, va_list lst)
 		v->diff2 = ft_printdot((char*)++s, lst, v);
 		if (v->diff2 > 0)
 			v->fl2 = 0;
+		if (ft_isdigit(*s))
+			s = ft_skipnum((char*)s);
+		else if (*s == '*')
+			s++;
 	}
-	if (ft_isconv(s = ft_skipnum((char*)s)) || ft_isconv((char*)++s))
+	//printf("---%s----\n", s);
+	//if (ft_isconv(s = ft_skipnum((char*)s)) || ft_isconv((char*)++s))
+	s = ft_flag(s, v);
+	//printf("---%s----\n", s);
+	if (ft_isconv((char*)s))
+	{
 		ft_itisconv(v->a, lst, v);
+	}
 	if (v->a == 's')
 		ft_strprint(v);
 	else

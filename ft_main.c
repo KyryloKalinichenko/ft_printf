@@ -82,13 +82,18 @@ int     main()
 	printf("It is orig: %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
 */
         int lol;
+        int* kek;
 
-        lol = 45;
+        lol = 1477189484;
+        kek = &lol;
   //              printf("%d\n", (char)0);
     //            ft_printf("%c\n", (char)0);
        // lol = (int)lol;
-              ft_printf("42%20.20hd42\n", 1477189484);
-                printf("42%20.20hd42\n", 1477189484);
+         //ft_printf("42%20.*d42\n", 20, 147718);
+              ft_printf("42%20.20hn42\n", kek);
+              lol = 1477189484;
+                printf("42%20.20hn42\n", kek);
+         //     ft_printf("Hello.");
        /* while(lol++ != 100)
         {
 			printf("Orig: %hx\n", lol);

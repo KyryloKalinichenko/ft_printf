@@ -24,7 +24,7 @@ void	ft_putchar(char a)
 int	ft_isflag(char *s)
 {
 	int i;
-	const char a[11] = "-. *0+#h\0";
+	const char a[9] = "-. *0+h#";
 
 	i = -1;
 	while(a[++i])
@@ -37,7 +37,7 @@ int	ft_isflag(char *s)
 
 int	ft_isconv(const char *b)
 {
-	const char a[10] = "dincspuxX\0";
+	const char a[10] = "dincspuxX";
 	int i;
 
 	if (b)
@@ -72,7 +72,12 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 			return ;
 	}
 	else if (a == 'n')
-		*(va_arg(lst, int*)) = ctr;
+	{
+		if (v->sh)
+			*(va_arg(lst, int*)) = (short int)ctr;
+		else 
+			*(va_arg(lst, int*)) = ctr;
+	}
 	else if (a == 'c')
 	{
 		if(!(v->res = ft_calloc(2, sizeof(char))))
