@@ -25,7 +25,7 @@ int     main()
         char    *t = "0x12345678";
         char    *u = "-0";
 
-     /*  	
+  /*     	
         printf(" --- Return : %d\n", printf("%c,  %-c, %1c, %*c,  %-*c,  %*c, %-*c", c, n[0], o[0], a, p[0], a, q[0], a, r[0], a, c));
 	ft_printf(" --- Return : %d\n", ft_printf("%c,  %-c, %1c, %*c,  %-*c,  %*c, %-*c", c, n[0], o[0], a, p[0], a, q[0], a, r[0], a, c));
         printf("\n----------------\n");
@@ -42,8 +42,8 @@ int     main()
 	ft_printf(" --- Return : %d\n", ft_printf("%%, \t, \\, \", \', +"));
         printf("\n----------------\n");
 
-*/
-  /*      printf(" --- Return : %d\n", printf("%%%dbada%s%%**%s**-d%%0*d%-12s0*@", h, "bada", r, p, r, r, i, r, i, r, i));
+
+        printf(" --- Return : %d\n", printf("%%%dbada%s%%**%s**-d%%0*d%-12s0*@", h, "bada", r, p, r, r, i, r, i, r, i));
          ft_printf(" --- Return : %d\n", ft_printf("%%%dbada%s%%**%s**-d%%0*d%-12s0*@", h, "bada", r, p, r, r, i, r, i, r, i));
 	printf("\n----------------\n");
         printf(" --- Return : %d\n", printf("%-00000-----*i, %---0.*d, %0-0-0-0-0.*d, %-0-0-0-0-.*d, %-----.*d", a, i, a, i, a, i, a, i, a, i));
@@ -57,11 +57,11 @@ int     main()
        
 
 	printf("\n----------------\n");
-        printf(" --- Return : %d\n", printf("%i, %d, %d, %d, %d, %d, %u, %x, %X", 0, 0, 0, 0, 0, 0, 0, 0, 0));
-        ft_printf(" --- Return : %d\n", ft_printf("%i, %d, %d, %d, %d, %d, %u, %x, %X", 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        printf(" --- Return : %d\n", printf("%i, %d, %d, %d, %d, %d, %u, %#x, %#X", 0, 0, 0, 0, 0, 0, 0, 10, 10));
+        ft_printf(" --- Return : %d\n", ft_printf("%i, %d, %d, %d, %d, %d, %u, %#x, %#X", 0, 0, 0, 0, 0, 0, 0, 10, 10));
 	printf("\n----------------\n");
-        printf(" --- Return : %d\n", printf("%*i, %*d, %*d, %*d, %*d, %*d, %*u, %*x, %*X", a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0));
-	ft_printf(" --- Return : %d\n", ft_printf("%*i, %*d, %*d, %*d, %*d, %*d, %*u, %*x, %*X", a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0));
+        printf(" --- Return : %d\n", printf("%*i, %*d, %*d, %*d, %*d, %*d, %*u, %#*x, %#*X", a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0));
+	ft_printf(" --- Return : %d\n", ft_printf("%*i, %*d, %*d, %*d, %*d, %*d, %*u, %#*x, %#*X", a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0, a, 0));
         printf("\n----------------\n");
         printf(" --- Return : %d\n", printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
 	 ft_printf(" --- Return : %d\n", ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
@@ -80,24 +80,34 @@ int     main()
         	ft_printf("It is my  : %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %:5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
     printf("\n----------------\n");
 	printf("It is orig: %c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c\n", 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
-*/
+
         int lol;
         int* kek;
 
-        lol = 1477189484;
+       lol = 1477189484;
         kek = &lol;
-  //              printf("%d\n", (char)0);
-    //            ft_printf("%c\n", (char)0);
-       // lol = (int)lol;
-         //ft_printf("42%20.*d42\n", 20, 147718);
+                printf("%c\n", 250);
+               ft_printf("%c\n", 250);
+        lol = (int)lol;
+         ft_printf("42%20.*d42\n", 20, 147718);
               ft_printf("42%20.20hn42\n", kek);
               lol = 1477189484;
                 printf("42%20.20hn42\n", kek);
          //     ft_printf("Hello.");
-       /* while(lol++ != 100)
+         lol = 0;
+        while(lol++ != 200)
         {
-			printf("Orig: %hx\n", lol);
-			ft_printf("Mine: %hx\n", lol);
-        }*/
+			printf("Orig: %c\n", lol);
+			ft_printf("Mine: %c\n", lol);
+        }
+        */
+       float lol;
+       lol = 12345.60;
 
+      // printf("%f\n", lol);
+      while (lol > 0)
+      {
+         printf("%s\n", ft_itoa_float(lol));
+         lol /= 10;
+      }
 }

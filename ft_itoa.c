@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int		ft_len(long n, int base/*, int zerch*/)
+static int		ft_len(long n, int base)
 {
 	long k;
 	long p;
@@ -26,8 +26,6 @@ static int		ft_len(long n, int base/*, int zerch*/)
 		n *= -1;
 		k++;
 	}
-	/*else if (zerch)
-		k++;*/
 	while (n > (base - 1))
 	{
 		n /= base;
@@ -37,29 +35,24 @@ static int		ft_len(long n, int base/*, int zerch*/)
 	return (k + p);
 }
 
-char			*ft_itoa(long int n, int base/*, int plus*/)
+char			*ft_itoa(long int n, int base)
 {
 	char	*s;
 	int		p;
 	long	k;
 
 	k = n;
-	p = ft_len(k, base/*, plus*/);
+	p = ft_len(k, base);
 	s = malloc(sizeof(char) * (p + 1));
 	if (s == NULL)
 		return (NULL);
 	s[p] = '\0';
 	if (k == 0)
 		s[0] = '0';
-	if (k < 0 /*|| plus*/)
+	if (k < 0)
 	{
-		//if (plus)
-		//	s[0] = '+';
-		//else
-		//{
-			s[0] = '-';
-			k *= -1;
-	//	}
+		s[0] = '-';
+		k *= -1;
 	}
 	while (k > 0)
 	{

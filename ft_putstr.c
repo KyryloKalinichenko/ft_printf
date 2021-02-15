@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_putstr(const char *str)
+void	ft_putstr(const char *str, t_key *v)
 {
 	int i;
 
@@ -8,11 +8,11 @@ void	ft_putstr(const char *str)
 	if (str)
 	{
 		while (str[++i])
-			ft_putchar(str[i]);
+			ft_putchar(str[i], v);
 	}
 }
 
-void	ft_putstrlm(const char *str, int lm)
+void	ft_putstrlm(const char *str, int lm, t_key *v)
 {
 	int i;
 
@@ -20,7 +20,7 @@ void	ft_putstrlm(const char *str, int lm)
 	if (str && lm > 0)
 	{
 		while (str[++i] && lm-- > 0)
-			ft_putchar(str[i]);
+			ft_putchar(str[i], v);
 	}
 }
 

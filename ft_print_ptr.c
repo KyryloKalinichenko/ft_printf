@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
+#include <stdio.h>
 
 static void     ft_p(t_key *v, long int addr)
 {
@@ -17,7 +18,7 @@ static void     ft_p(t_key *v, long int addr)
 
     v->res = "0x";
 	if (!(v->res = ft_strjoin(v->res, tmp = ft_itoa(addr, 16))))
-        return ;
+        v->ctr = -1;
 	free(tmp);
 }
 
@@ -52,20 +53,29 @@ void    ft_print_ptr(long int addr, char a, t_key *v)
 	else if (a == 'u')
         {
 		    if (!(v->res = ft_itoa((long int)addr, 10)))
-                return ;
+                v->ctr = -1;
         }
 	else if (a == 'X' || a == 'x')
 	{
 		if ((s = ft_itoa((long int)addr, 16)))
 		{
-			if (v->hash)
+			if (v->hash && addr)
 			{
 				if ((tmp = ft_strjoin("0x", s)))
+				{
 					free (s);
-				s = tmp;
+					s = tmp;
+				}
+				else
+				{
+					v->ctr = -1;
+					return ;
+				}
 			}
             ft_reg(a, s);
 		}
+		else
+			v->ctr = -1;
 		v->res = s;
 	}
 }

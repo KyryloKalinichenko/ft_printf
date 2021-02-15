@@ -44,7 +44,7 @@ char	*ft_skipnum(char *s)
 	return (NULL);
 }
 
-int	ft_printsp(char *s, va_list lst)
+int	ft_printsp(char *s, va_list lst, t_key *v)
 {
 	char *str;
 	int i;
@@ -53,7 +53,10 @@ int	ft_printsp(char *s, va_list lst)
 	if (s && ft_isdigit(*s))
 	{
 		if (!(str = ft_substr(s, 0, (int)(ft_skipnum(s) - s))))
+		{
+			v->ctr = -1;
 			return (0);
+		}
 		i = ft_atoi(str);
 		free(str);
 		return (i);

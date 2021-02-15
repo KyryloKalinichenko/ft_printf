@@ -14,55 +14,48 @@
 
 int	ft_printdot(char *s, va_list a, t_key *v)
 {
-	int i;
 	char *tmp;
+	int i;
 	
-	i = -1;
-	if (s)
+	i = 0;
+	if (!s)
+		return (0);
+	if (ft_isdigit(*s))
 	{
-		if (ft_isdigit(*s))
+		if (!(tmp = ft_substr(s, 0, ft_skipnum(s) - s)))
 		{
-			if (!(tmp = ft_substr(s, 0, ft_skipnum(s) - s)))
-				return (0);
-			i = ft_atoi(tmp);
-			v->fl3 = 1;
-			free(tmp);
-			return (i);
-		}
-		else if(*s == '*')
-		{
-			v->fl3 = 1;
-			return ((int)(va_arg(a, int)));
-		}
-		else if (ft_isconv(s))
-		{
-			v->fl3 = 1;
+			v->ctr = -1;
 			return (0);
 		}
+		i = ft_atoi(tmp);
+		free(tmp);
 	}
+	else if(*s == '*')
+		i = (int)(va_arg(a, int));
+	v->fl3 = 1;
 	return (i);
 }
 
 static void		ft_printres(t_key *v, int p, int w)
 {
 	if (v->fl)
-			{
-				if (v->fl3 == 1 && p >= 0/* && v->res*/)
-					ft_putstrlm(v->res, p);
-				else 
-					ft_putstr(v->res);
-				while (w-- > 0)
-					ft_putchar(' ');
-			}
+	{
+		if (v->fl3 == 1 && p >= 0)
+			ft_putstrlm(v->res, p, v);
+		else 
+			ft_putstr(v->res, v);
+		while (w-- > 0)
+			ft_putchar(' ', v);
+	}
 	else if (!v->fl)
-			{
-				while (w-- > 0)
-					ft_putchar(' ');
-				if (v->fl3 == 1 && p >= 0 /*&& v->res*/)
-					ft_putstrlm(v->res, p);
-				else
-					ft_putstr(v->res);
-			}
+	{
+		while (w-- > 0)
+			ft_putchar(' ', v);
+		if (v->fl3 == 1 && p >= 0)
+			ft_putstrlm(v->res, p, v);
+		else
+			ft_putstr(v->res, v);
+	}
 }
 
 void	ft_strprint(t_key *v)
@@ -74,7 +67,13 @@ void	ft_strprint(t_key *v)
 	if (v)
 	{
 		if (!v->res)
-			v->res = ft_strdup("(null)");
+		{
+			if (!(v->res = ft_strdup("(null)")))
+			{
+				v->ctr = -1;
+				return ;
+			}
+		}
 		len = ft_strlen(v->res);
 		p = v->diff2;
 		w = v->diff;

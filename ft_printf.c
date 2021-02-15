@@ -15,10 +15,10 @@
 
 int ctr;
 
-void	ft_putchar(char a)
+void	ft_putchar(char a, t_key *v)
 {
 	write(1, &a, 1);
-	ctr++;
+	v->ctr++;
 }
 
 int	ft_isflag(char *s)
@@ -69,27 +69,33 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 			i *= -1;
 		}
 		if(!(v->res = ft_itoa(i, 10)))
-			return ;
+			v->ctr = -1;
 	}
 	else if (a == 'n')
 	{
 		if (v->sh)
-			*(va_arg(lst, int*)) = (short int)ctr;
+			*(va_arg(lst, int*)) = (short int)v->ctr;
 		else 
-			*(va_arg(lst, int*)) = ctr;
+			*(va_arg(lst, int*)) = v->ctr;
 	}
 	else if (a == 'c')
 	{
 		if(!(v->res = ft_calloc(2, sizeof(char))))
-			return ;
-		v->res[0] = (a = va_arg(lst, int));
-		v->zerch = 1;
+			v->ctr = -1;
+		else
+		{
+			a = (char)va_arg(lst, int);
+			v->res[0] = a;
+			v->zerch = 1;
+		}
 	}
 	else if (a == 's')
 	{
-		if(!(s = ft_strdup((va_arg(lst, char *)))))
-			s = NULL;
-		v->res = s;
+		s = va_arg(lst, char *);
+		if(s && !(s = ft_strdup(s)))
+			v->ctr = -1;
+		else 
+			v->res = s;
 	}
 	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
 	{
@@ -105,25 +111,29 @@ int	ft_printf(const char *s, ...)
 {
 	va_list lst;
 	t_key *v;
+	int i;
 
-	ctr = 0;
+	i = 0;
 	va_start(lst, s);
 	if (!s || !(v = malloc(sizeof(t_key))))
-		return (0);
+		return (-1);
+	v->ctr = 0;
 	while (*s)
 	{
 		ft_load(v);
 		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
 		{
-			s = ft_percent(v, (char*)s, lst);
+			if (!(s = ft_percent(v, (char*)s, lst)))
+				break ;
 			if (v->res)
 				free(v->res);
 		}
 		else
-			ft_putchar(*s);
+			ft_putchar(*s, v);
 		s++;
 	}
+	i += v->ctr;
 	free(v);
 	va_end(lst);
-	return (ctr);
+	return (i);
 }
