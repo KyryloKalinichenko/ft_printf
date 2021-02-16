@@ -102,10 +102,7 @@ int     main()
 			ft_printf("Mine: %c\n", lol);
         }
         */
-    ft_printf("%p , %p, %p\n", (void*)9420165689360028937lu, &n, NULL);
-    printf("%p , %p, %p\n", (void*)9420165689360028937lu, &n, NULL);
-
-    ft_printf("%s\n", "here");
-    printf("%s\n", "here");
+    ft_printf("%*u\n", 10, -20);
+    printf("%*u\n", 10, -20);
 
 }
