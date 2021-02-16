@@ -37,7 +37,7 @@ int	ft_isflag(char *s)
 
 int	ft_isconv(const char *b)
 {
-	const char a[10] = "dincspuxX";
+	const char a[11] = "dincspuxX%";
 	int i;
 
 	if (b)
@@ -78,13 +78,14 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 		else 
 			*(va_arg(lst, int*)) = v->ctr;
 	}
-	else if (a == 'c')
+	else if (a == 'c' || a == '%')
 	{
 		if(!(v->res = ft_calloc(2, sizeof(char))))
 			v->ctr = -1;
 		else
 		{
-			a = (char)va_arg(lst, int);
+			if (a == 'c')
+				a = (char)va_arg(lst, int);
 			v->res[0] = a;
 			v->zerch = 1;
 		}

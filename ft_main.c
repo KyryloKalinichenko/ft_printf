@@ -73,6 +73,7 @@ int     main()
         printf("\n----------------\n");
         // ^ Theoriquement un comportement indefini mais testé par la moulinette
         printf(" --- Return : %d\n", printf("(null)"));
+
         ft_printf(" --- Return : %d\n", ft_printf("(null)"));
 	printf("\n----------------\n");
         printf(" --- Return : %d\n", printf(""));
@@ -101,13 +102,6 @@ int     main()
 			ft_printf("Mine: %c\n", lol);
         }
         */
-       float lol;
-       lol = 12345.60;
-
-      // printf("%f\n", lol);
-      while (lol > 0)
-      {
-         printf("%s\n", ft_itoa_float(lol));
-         lol /= 10;
-      }
+    ft_printf("%03.2%\n");
+    printf("%03%\n");
 }
