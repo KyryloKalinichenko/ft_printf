@@ -102,6 +102,10 @@ int     main()
 			ft_printf("Mine: %c\n", lol);
         }
         */
-    ft_printf("%03.2%\n");
-    printf("%03%\n");
+    ft_printf("%p , %p, %p\n", (void*)9420165689360028937lu, &n, NULL);
+    printf("%p , %p, %p\n", (void*)9420165689360028937lu, &n, NULL);
+
+    ft_printf("%s\n", "here");
+    printf("%s\n", "here");
+
 }

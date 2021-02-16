@@ -86,6 +86,12 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 		{
 			if (a == 'c')
 				a = (char)va_arg(lst, int);
+			else
+			{
+				v->fl3 = 0;
+				v->diff2 = 1;
+			}
+			
 			v->res[0] = a;
 			v->zerch = 1;
 		}
@@ -103,7 +109,7 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 		if (v->sh && a != 'p')
 			i = (short unsigned int)va_arg(lst, int);
 		else
-			i = va_arg(lst, int);
+			i = va_arg(lst, unsigned long long int);
 		ft_print_ptr(i, a, v);
 	}
 }

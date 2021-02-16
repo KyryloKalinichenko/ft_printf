@@ -12,14 +12,25 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-static void     ft_p(t_key *v, long int addr)
+static void     ft_p(t_key *v, unsigned long long int addr)
 {
     char *tmp;
 
-    v->res = "0x";
-	if (!(v->res = ft_strjoin(v->res, tmp = ft_itoa(addr, 16))))
-        v->ctr = -1;
-	free(tmp);
+	if (!addr && v->fl3)
+	{
+		v->diff2 = 0;
+		v->fl3 = 0;
+	}
+	else
+	{
+    	v->res = "0x";
+		if (!(v->res = ft_strjoin(v->res, tmp = ft_itoa_max(addr, 16))))
+        	v->ctr = -1;
+		free(tmp);
+	}
+	/*else
+		if(!(v->res = ft_strdup("0x")))
+			v->ctr = -1;*/
 }
 
 static void    ft_reg(char a, char *s)
@@ -40,24 +51,24 @@ static void    ft_reg(char a, char *s)
 	}
 }
 
-void    ft_print_ptr(long int addr, char a, t_key *v)
+void    ft_print_ptr(unsigned long long int addr, char a, t_key *v)
 {
 	char *s;
-	const long int MAX = 4294967296;
+	//const long int MAX = 4294967296;
 	char *tmp;
 
-	if (addr < 0)
-		addr += MAX;
+/*	if (addr < 0)
+		addr += MAX;*/
 	if (a == 'p')
         ft_p(v, addr);
 	else if (a == 'u')
         {
-		    if (!(v->res = ft_itoa((long int)addr, 10)))
+		    if (!(v->res = ft_itoa_max(addr, 10)))
                 v->ctr = -1;
         }
 	else if (a == 'X' || a == 'x')
 	{
-		if ((s = ft_itoa((long int)addr, 16)))
+		if ((s = ft_itoa_max(addr, 16)))
 		{
 			if (v->hash && addr)
 			{

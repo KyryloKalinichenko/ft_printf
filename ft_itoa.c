@@ -12,10 +12,10 @@
 
 #include "ft_printf.h"
 
-static int		ft_len(long n, int base)
+static int		ft_len(long int n, int base)
 {
-	long k;
-	long p;
+	long int k;
+	long int p;
 
 	k = 1;
 	p = 0;
@@ -39,7 +39,7 @@ char			*ft_itoa(long int n, int base)
 {
 	char	*s;
 	int		p;
-	long	k;
+	long int	k;
 
 	k = n;
 	p = ft_len(k, base);

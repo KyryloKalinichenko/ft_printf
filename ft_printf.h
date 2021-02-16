@@ -77,6 +77,8 @@ void				ft_load(t_key *v);
 char				*ft_percent(t_key *v, char *s, va_list lst);
 char				*ft_skipstar(char *s);
 int					ft_isflag(char *s);
-void				ft_print_ptr(long int addr, char a, t_key *v);
+void				ft_print_ptr(unsigned long long int addr, char a, t_key *v);
 char				*ft_itoa_float(float n);
+char				*ft_itoa_max(unsigned long long int n, int base);
+
 #endif

@@ -63,12 +63,9 @@ static void	ft_width(t_key *v, va_list lst, char *s)
 
 char	*ft_percision(t_key *v, char *s, va_list lst)
 {
-	//if (v->a != 'c')
-	//{
-		v->diff2 = ft_printdot((char*)++s, lst, v);
+	v->diff2 = ft_printdot((char*)++s, lst, v);
 	if (v->diff2 > 0)
 		v->fl2 = 0;
-	//}
 	if (ft_isdigit(*s))
 		s = ft_skipnum((char*)s);
 	else if (*s == '*')
@@ -104,6 +101,7 @@ char	*ft_percent(t_key *v, char *s, va_list lst)
 	}
 	if (v->a == 's')
 	{
+		//printf("---%s---", v->res)
 		ft_strprint(v);
 		if (v->ctr == -1)
 			return (NULL);

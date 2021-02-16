@@ -77,7 +77,7 @@ void	ft_strprint(t_key *v)
 		len = ft_strlen(v->res);
 		p = v->diff2;
 		w = v->diff;
-		printf("%i", w);
+		//printf("---%i---", w);
 		if (v->fl3 == 1 && p > 0)
 		{
 			if (p <= len)

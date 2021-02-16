@@ -37,6 +37,7 @@ SRC = 		ft_atoi.c \
 		ft_percent.c \
 		ft_putstr.c \
 		ft_print_ptr.c \
+		ft_itoa_max.c \
 		ft_star.c
 
 SRC2 = 	ft_lstnew.c \
