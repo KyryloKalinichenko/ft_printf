@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:35:48 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/11 16:56:58 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:35:24 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -64,12 +64,13 @@ static void	ft_width(t_key *v, va_list lst, char *s)
 char	*ft_percision(t_key *v, char *s, va_list lst)
 {
 	v->diff2 = ft_printdot((char*)++s, lst, v);
-	if (v->diff2 > 0)
-		v->fl2 = 0;
 	if (ft_isdigit(*s))
 		s = ft_skipnum((char*)s);
 	else if (*s == '*')
 		s++;
+	if (v->diff2 > 0 && *s != '%' && 
+			*s != 'c' && *s != 's')
+		v->fl2 = 0;
 	return (s);
 }
 

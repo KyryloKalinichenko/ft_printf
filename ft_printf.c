@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:37:44 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/11 16:56:18 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:32:15 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 	{
 		if (v->sh && a != 'p')
 			i = (short unsigned int)va_arg(lst, int);
+		else if (a == 'x' || a == 'X' || a == 'u')
+			i = va_arg(lst, unsigned int);
 		else
 			i = va_arg(lst, unsigned long long int);
 		ft_print_ptr(i, a, v);

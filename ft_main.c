@@ -98,11 +98,10 @@ int     main()
          lol = 0;
         while(lol++ != 200)
         {
-			printf("Orig: %c\n", lol);
 			ft_printf("Mine: %c\n", lol);
         }
         */
-    ft_printf("%*u\n", 10, -20);
-    printf("%*u\n", 10, -20);
+			printf(" ----%010s---\n", "lol");
+			ft_printf(" ----%010s---\n", "lol");
 
 }
