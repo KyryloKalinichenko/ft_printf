@@ -15,12 +15,12 @@ void	ft_load(t_key *v)
 {
 	if (v)
 	{
-		v->fl = 0;
-		v->fl2 = 0;
-		v->diff = 0;
-		v->diff2 = 1;
+		v->ljus = 0;
+		v->zero = 0;
+		v->width = 0;
+		v->perc_q = 1;
 		v->neg = 0;
-		v->fl3 = 0;
+		v->perc_f = 0;
 		v->res = NULL;
 		v->space = 0;
 		v->zerch = 0;

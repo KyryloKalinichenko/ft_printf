@@ -88,8 +88,8 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 				a = (char)va_arg(lst, int);
 			else
 			{
-				v->fl3 = 0;
-				v->diff2 = 1;
+				v->perc_f = 0;
+				v->perc_q = 1;
 			}
 			
 			v->res[0] = a;

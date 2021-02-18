@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+size_t			ft_strlen(const char *s)
 {
-	int i;
-	char *cp;
+	char	*cp;
+	int	i;
 
 	i = 0;
+	cp = (char*)s;
 	if (s != NULL)
 	{
-		cp = (char*)s;
 		while (cp[i])
 			i++;
 		return (i);

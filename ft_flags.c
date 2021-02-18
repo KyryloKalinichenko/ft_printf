@@ -32,26 +32,26 @@ int	ft_printdot(char *s, va_list a, t_key *v)
 	}
 	else if(*s == '*')
 		i = (int)(va_arg(a, int));
-	v->fl3 = 1;
+	v->perc_f = 1;
 	return (i);
 }
 
 static void		ft_printres(t_key *v, int p, int w)
 {
-	if (v->fl)
+	if (v->ljus)
 	{
-		if (v->fl3 == 1 && p >= 0)
+		if (v->perc_f == 1 && p >= 0)
 			ft_putstrlm(v->res, p, v);
 		else 
 			ft_putstr(v->res, v);
 		while (w-- > 0)
 			ft_putchar(' ', v);
 	}
-	else if (!v->fl)
+	else
 	{
 		while (w-- > 0)
 			ft_putchar(' ', v);
-		if (v->fl3 == 1 && p >= 0)
+		if (v->perc_f == 1 && p >= 0)
 			ft_putstrlm(v->res, p, v);
 		else
 			ft_putstr(v->res, v);
@@ -75,17 +75,16 @@ void	ft_strprint(t_key *v)
 			}
 		}
 		len = ft_strlen(v->res);
-		p = v->diff2;
-		w = v->diff;
-		//printf("---%i---", w);
-		if (v->fl3 == 1 && p > 0)
+		p = v->perc_q;
+		w = v->width;
+		if (v->perc_f == 1 && p > 0)
 		{
 			if (p <= len)
 				w -= p;
 			else if (len < p)
 				w -= len;
 		}
-		else if (v->fl3 == 0 || p < 0)
+		else if (v->perc_f == 0 || p < 0)
 				w -= len;
 		ft_printres(v, p, w);
 	}

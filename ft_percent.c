@@ -38,39 +38,39 @@ static char	*ft_flag(char *s, t_key *v)
 			v->hash = 1;
 		else if (*s == ' ' && !v->space)
 			v->space = 1;
-		else if (*s == '-' && !v->fl)
-			v->fl = 1;
-		else if (*s == '0' && !v->fl)
-			v->fl2 = 1;
+		else if (*s == '-' && !v->ljus)
+			v->ljus = 1;
+		else if (*s == '0' && !v->ljus)
+			v->zero = 1;
 		s++;
 	}
 	if (v->plus)
 		v->space = 0;
-	if (v->fl)
-		v->fl2 = 0;
+	if (v->ljus)
+		v->zero = 0;
 	return (s);
 }
 
 static void	ft_width(t_key *v, va_list lst, char *s)
 {
-	if (0 > (v->diff = ft_printsp((char*)s, lst, v)))
+	if (0 > (v->width = ft_printsp((char*)s, lst, v)))
 		{
-			v->fl = 1;
-			v->fl2 = 0;
-			v->diff *= -1;
+			v->ljus = 1;
+			v->zero = 0;
+			v->width *= -1;
 		}
 }
 
 char	*ft_percision(t_key *v, char *s, va_list lst)
 {
-	v->diff2 = ft_printdot((char*)++s, lst, v);
+	v->perc_q = ft_printdot((char*)++s, lst, v);
 	if (ft_isdigit(*s))
 		s = ft_skipnum((char*)s);
 	else if (*s == '*')
 		s++;
-	if (v->diff2 > 0 && *s != '%' && 
+	if (v->perc_q > 0 && *s != '%' && 
 			*s != 'c' && *s != 's')
-		v->fl2 = 0;
+		v->zero = 0;
 	return (s);
 }
 
@@ -108,6 +108,6 @@ char	*ft_percent(t_key *v, char *s, va_list lst)
 			return (NULL);
 	}
 	else
-		ft_star(v);
+		ft_printnum(v);
 	return(ft_skipall((char*)s));
 }

@@ -38,18 +38,7 @@ SRC = 		ft_atoi.c \
 		ft_putstr.c \
 		ft_print_ptr.c \
 		ft_itoa_max.c \
-		ft_star.c
-
-SRC2 = 	ft_lstnew.c \
-		ft_lstadd_front.c \
-		ft_lstsize.c \
-		ft_lstlast.c \
-		ft_lstadd_back.c \
-		ft_lstdelone.c \
-		ft_lstclear.c \
-		ft_lstiter.c \
-		ft_lstmap.c \
-
+		ft_printnum.c
 
 OBJ = $(SRC:.c=.o)
 OBJ2 = $(SRC2:.c=.o)
@@ -59,8 +48,8 @@ all : $(NAME)
 $(NAME): $(OBJ)
 	ar r $(NAME) $(OBJ)
 
-bonus: $(OBJ) $(OBJ2)
-	ar r $(NAME) $(OBJ) $(OBJ2)
+bonus: $(OBJ) 
+	ar r $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(OBJ2)

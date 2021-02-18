@@ -26,7 +26,7 @@ void	ft_putstrlm(const char *str, int lm, t_key *v)
 
 char	*ft_skipf(char *s)
 {
-	while(s && ft_isflag(s))
+	while (s && ft_isflag(s))
 		s++;
 	return (s);
 }
@@ -37,15 +37,16 @@ char	*ft_skipstar(char *s)
 		s++;
 	return (s);
 }
+
 char	*ft_skipall(char *s)
 {
 	if (s)
 	{
-		while(s && (ft_isdigit(*s) || ft_isflag(s)))
+		while (s && (ft_isdigit(*s) || ft_isflag(s)))
 			s++;
 		if (s && ft_isconv(s))
 			return (s);
-		else 
+		else
 			return (NULL);
 	}
 	return (NULL);
