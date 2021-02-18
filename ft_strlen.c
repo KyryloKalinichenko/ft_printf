@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:43:57 by kkalinic          #+#    #+#             */
-/*   Updated: 2020/11/27 15:31:18 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:58:45 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t			ft_strlen(const char *s)
 {
 	char	*cp;
-	int	i;
+	int		i;
 
 	i = 0;
 	cp = (char*)s;

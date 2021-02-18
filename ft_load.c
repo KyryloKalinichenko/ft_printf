@@ -6,9 +6,10 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:35:26 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/11 15:34:26 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 16:41:47 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	ft_load(t_key *v)
@@ -44,11 +45,11 @@ char	*ft_skipnum(char *s)
 	return (NULL);
 }
 
-int	ft_printsp(char *s, va_list lst, t_key *v)
+int		ft_printsp(char *s, va_list lst, t_key *v)
 {
-	char *str;
-	int i;
-	
+	char	*str;
+	int		i;
+
 	i = 1;
 	if (s && ft_isdigit(*s))
 	{

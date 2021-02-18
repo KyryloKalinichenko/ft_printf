@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:38:59 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/05 17:39:12 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:08:23 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static	void	ft_res(t_key *v)
 	}
 }
 
-static void	ft_printsg(t_key *v)
+static void		ft_printsg(t_key *v)
 {
 	if (v->neg)
 		ft_putchar('-', v);
@@ -37,18 +37,18 @@ static void	ft_printsg(t_key *v)
 		ft_putchar(' ', v);
 }
 
-void    ft_rjustify(t_key *v, int p, int w)
+void			ft_rjustify(t_key *v, int p, int w)
 {
-    if (v->neg == 1)
-			w--;
+	if (v->neg == 1)
+		w--;
 	if (v->zero == 1 && v->perc_q != 0)
-    		ft_printsg(v);
+		ft_printsg(v);
 	while (0 < w--)
 		ft_putchar(v->a, v);
 	if (v->zero == 0 || v->perc_q == 0)
 		ft_printsg(v);
 	if (v->perc_f == 1)
-	{	
+	{
 		while (p-- > 0)
 			ft_putchar('0', v);
 		if (0 != ft_strcmp("0", v->res) || v->perc_q != 0)
@@ -58,9 +58,9 @@ void    ft_rjustify(t_key *v, int p, int w)
 		ft_res(v);
 }
 
-void	ft_ljustify(t_key *v, int p, int w)
+void			ft_ljustify(t_key *v, int p, int w)
 {
-    if (v->neg || v->plus)
+	if (v->neg || v->plus)
 	{
 		ft_printsg(v);
 		w--;
@@ -78,7 +78,7 @@ void	ft_ljustify(t_key *v, int p, int w)
 		ft_putchar(v->a, v);
 }
 
-void	ft_printnum(t_key *v)
+void			ft_printnum(t_key *v)
 {
 	int p;
 	int w;
@@ -87,7 +87,7 @@ void	ft_printnum(t_key *v)
 	if (v)
 	{
 		len = ft_strlen(v->res);
-        p = v->perc_q - len;
+		p = v->perc_q - len;
 		if (v->perc_q == 0 && !ft_strcmp("0", v->res))
 			w = v->width;
 		else
@@ -96,11 +96,11 @@ void	ft_printnum(t_key *v)
 			w -= p;
 		if (v->zero == 1 && v->perc_q != 0)
 			v->a = '0';
-		else 
+		else
 			v->a = ' ';
 		if (v->ljus == 0)
-            ft_rjustify(v, p, w);
+			ft_rjustify(v, p, w);
 		else
-            ft_ljustify(v, p, w);
+			ft_ljustify(v, p, w);
 	}
 }

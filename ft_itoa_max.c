@@ -6,40 +6,33 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:19:20 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/11 13:24:25 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:32:10 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
 static int		ft_len(unsigned long long int n, unsigned int base)
 {
-	int k;
-	unsigned long long int p;
+	int						k;
+	unsigned long long int	p;
 
 	k = 1;
 	p = 0;
 	if (n == 0)
 		return (1);
-	/*if (n < 0)
-	{
-		n *= -1;
-		k++;
-	}*/
 	while (n > (base - 1))
 	{
 		n /= base;
 		k++;
 	}
-
 	return (k + p);
 }
 
 char			*ft_itoa_max(unsigned long long int n, int base)
 {
-	char	*s;
-	int		p;
+	char					*s;
+	int						p;
 	unsigned long long int	k;
 
 	k = n;
@@ -50,14 +43,9 @@ char			*ft_itoa_max(unsigned long long int n, int base)
 	s[p] = '\0';
 	if (k == 0)
 		s[0] = '0';
-/*	if (k < 0)
-	{
-		s[0] = '-';
-		k *= -1;
-	}*/
 	while (k > 0)
 	{
-		p--;	
+		p--;
 		if ((k % base) < 10)
 			s[p] = ((k % base) + 48);
 		else if ((k % base) <= 15 && (k % base) > 9)

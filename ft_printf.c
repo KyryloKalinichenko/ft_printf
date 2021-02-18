@@ -6,14 +6,11 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:37:44 by kkalinic          #+#    #+#             */
-/*   Updated: 2021/02/17 15:32:15 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:32:12 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-
-int ctr;
 
 void	ft_putchar(char a, t_key *v)
 {
@@ -21,13 +18,13 @@ void	ft_putchar(char a, t_key *v)
 	v->ctr++;
 }
 
-int	ft_isflag(char *s)
+int		ft_isflag(char *s)
 {
-	int i;
-	const char a[9] = "-. *0+h#";
+	int			i;
+	const char	a[9] = "-. *0+h#";
 
 	i = -1;
-	while(a[++i])
+	while (a[++i])
 	{
 		if (a[i] == *s)
 			return (1);
@@ -35,10 +32,10 @@ int	ft_isflag(char *s)
 	return (0);
 }
 
-int	ft_isconv(const char *b)
+int		ft_isconv(const char *b)
 {
-	const char a[11] = "dincspuxX%";
-	int i;
+	const char	a[11] = "dincspuxX%";
+	int			i;
 
 	if (b)
 	{
@@ -46,7 +43,7 @@ int	ft_isconv(const char *b)
 		while (a[++i])
 		{
 			if (a[i] == *b)
-				return(1);
+				return (1);
 		}
 	}
 	return (0);
@@ -54,33 +51,33 @@ int	ft_isconv(const char *b)
 
 void	ft_itisconv(char a, va_list lst, t_key *v)
 {
-	long long i;
-	char *s;
+	long long	i;
+	char		*s;
 
 	if (a == 'd' || a == 'i')
 	{
 		if (v->sh)
 			i = (short int)va_arg(lst, int);
 		else
-			i = va_arg(lst, int);
+			i = va_arg(lst, long long int);
 		if (i < 0)
-		{	
+		{
 			v->neg = 1;
 			i *= -1;
 		}
-		if(!(v->res = ft_itoa(i, 10)))
+		if (!(v->res = ft_itoa(i, 10)))
 			v->ctr = -1;
 	}
 	else if (a == 'n')
 	{
 		if (v->sh)
 			*(va_arg(lst, int*)) = (short int)v->ctr;
-		else 
+		else
 			*(va_arg(lst, int*)) = v->ctr;
 	}
 	else if (a == 'c' || a == '%')
 	{
-		if(!(v->res = ft_calloc(2, sizeof(char))))
+		if (!(v->res = ft_calloc(2, sizeof(char))))
 			v->ctr = -1;
 		else
 		{
@@ -91,7 +88,6 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 				v->perc_f = 0;
 				v->perc_q = 1;
 			}
-			
 			v->res[0] = a;
 			v->zerch = 1;
 		}
@@ -99,9 +95,9 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 	else if (a == 's')
 	{
 		s = va_arg(lst, char *);
-		if(s && !(s = ft_strdup(s)))
+		if (s && !(s = ft_strdup(s)))
 			v->ctr = -1;
-		else 
+		else
 			v->res = s;
 	}
 	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
@@ -116,11 +112,11 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 	}
 }
 
-int	ft_printf(const char *s, ...)
+int		ft_printf(const char *s, ...)
 {
-	va_list lst;
-	t_key *v;
-	int i;
+	va_list	lst;
+	t_key	*v;
+	int		i;
 
 	i = 0;
 	va_start(lst, s);

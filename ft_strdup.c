@@ -6,7 +6,7 @@
 /*   By: kkalinic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:47:37 by kkalinic          #+#    #+#             */
-/*   Updated: 2020/11/20 11:48:15 by kkalinic         ###   ########.fr       */
+/*   Updated: 2021/02/18 16:01:16 by kkalinic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strdup(const char *s)
 {
 	char	*dup;
 	int		i;
-	int p;
+	int		p;
 
 	if (s != NULL)
 	{
