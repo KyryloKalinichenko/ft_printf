@@ -21,7 +21,7 @@ void	ft_putchar(char a, t_key *v)
 int		ft_isflag(char *s)
 {
 	int			i;
-	const char	a[9] = "-. *0+h#";
+	const char	a[9] = "-. *0+#h";
 
 	i = -1;
 	while (a[++i])
@@ -59,7 +59,7 @@ void	ft_itisconv(char a, va_list lst, t_key *v)
 		if (v->sh)
 			i = (short int)va_arg(lst, int);
 		else
-			i = va_arg(lst, long long int);
+			i = va_arg(lst, int);
 		if (i < 0)
 		{
 			v->neg = 1;

@@ -45,24 +45,24 @@ char	*ft_skipnum(char *s)
 	return (NULL);
 }
 
-int		ft_printsp(char *s, va_list lst, t_key *v)
+char		*ft_printsp(char *s, va_list lst, t_key *v)
 {
-	char	*str;
 	int		i;
 
-	i = 1;
+	i = 0;
 	if (s && ft_isdigit(*s))
 	{
-		if (!(str = ft_substr(s, 0, (int)(ft_skipnum(s) - s))))
+		while (*s >= '0' && *s <= '9')
 		{
-			v->ctr = -1;
-			return (0);
+			i = i * 10 + *s - '0';
+			s++;
 		}
-		i = ft_atoi(str);
-		free(str);
-		return (i);
 	}
 	else if (s && *s == '*')
+	{
 		i = va_arg(lst, int);
-	return (i);
+		s++;
+	}
+	v->width = i;
+	return (s);
 }

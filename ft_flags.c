@@ -12,9 +12,8 @@
 
 #include "ft_printf.h"
 
-int				ft_printdot(char *s, va_list a, t_key *v)
+char				*ft_printdot(char *s, va_list a, t_key *v)
 {
-	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -22,18 +21,20 @@ int				ft_printdot(char *s, va_list a, t_key *v)
 		return (0);
 	if (ft_isdigit(*s))
 	{
-		if (!(tmp = ft_substr(s, 0, ft_skipnum(s) - s)))
+		while (*s >= '0' && *s <= '9')
 		{
-			v->ctr = -1;
-			return (0);
+			i = i * 10 + *s - '0';
+			s++;
 		}
-		i = ft_atoi(tmp);
-		free(tmp);
 	}
 	else if (*s == '*')
-		i = (int)(va_arg(a, int));
+	{
+		i = (int)(va_arg(a, unsigned int));
+		s++;
+	}
 	v->perc_f = 1;
-	return (i);
+	v->perc_q = i;
+	return (s);
 }
 
 static void		ft_printres(t_key *v, int p, int w)

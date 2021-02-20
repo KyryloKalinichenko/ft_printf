@@ -32,8 +32,6 @@ static char		*ft_flag(char *s, t_key *v)
 	{
 		if (*s == '+' && !v->plus)
 			v->plus = 1;
-		else if (*s == 'h')
-			v->sh = 1;
 		else if (*s == '#')
 			v->hash = 1;
 		else if (*s == ' ' && !v->space)
@@ -51,23 +49,21 @@ static char		*ft_flag(char *s, t_key *v)
 	return (s);
 }
 
-static void		ft_width(t_key *v, va_list lst, char *s)
+static char		*ft_width(t_key *v, va_list lst, char *s)
 {
-	if (0 > (v->width = ft_printsp((char*)s, lst, v)))
+	s = ft_printsp((char*)s, lst, v);
+	if (0 > (v->width))
 	{
 		v->ljus = 1;
 		v->zero = 0;
 		v->width *= -1;
 	}
+	return (s);
 }
 
 char			*ft_percision(t_key *v, char *s, va_list lst)
 {
-	v->perc_q = ft_printdot(++s, lst, v);
-	if (ft_isdigit(*s))
-		s = ft_skipnum(s);
-	else if (*s == '*')
-		s++;
+	s = ft_printdot(++s, lst, v);
 	if (v->perc_q > 0 && *s != '%' &&
 			*s != 'c' && *s != 's')
 		v->zero = 0;
@@ -78,13 +74,12 @@ char			*ft_percent(t_key *v, char *s, va_list lst)
 {
 	v->a = *ft_skipall(s);
 	s = ft_flag(s, v);
-	if (ft_isdigit(*s) || *s == '*')
-		ft_width(v, lst, s);
-	if ((*(s = ft_skipnum(s)) == '.'
-		|| *(s = ft_skipstar(s)) == '.') && v->ctr != -1)
+	s = ft_width(v, lst, s);
+	if (*s == '.')
 		s = ft_percision(v, s, lst);
-	s = ft_flag(s, v);
-	if (ft_isconv(s) && v->ctr != -1)
+	if (*s == 'h')
+		v->sh = 1;
+	if (ft_isconv(s))
 		ft_itisconv(v->a, lst, v);
 	if (v->a == 's' && v->ctr != -1)
 		ft_strprint(v);

@@ -14,23 +14,9 @@
 
 static void		ft_p(t_key *v, unsigned long long int addr)
 {
-	char	*tmp;
-
-	if (!addr && v->perc_f)
-	{
-		if (!(v->res = ft_strdup("0x")))
-			v->ctr = -1;
-		v->perc_q = 0;
-		v->perc_f = 0;
-	}
-	else
-	{
-		v->res = "0x";
-		tmp = ft_itoa_max(addr, 16);
-		if (!(v->res = ft_strjoin(v->res, tmp)))
-			v->ctr = -1;
-		free(tmp);
-	}
+	if (!(v->res = ft_itoa_max(addr, 16)))
+		v->ctr = -1;
+	v->width -= 2;
 }
 
 static void		ft_reg(char a, char *s)

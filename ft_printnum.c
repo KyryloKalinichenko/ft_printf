@@ -44,9 +44,11 @@ void			ft_rjustify(t_key *v, int p, int w)
 	if (v->zero == 1 && v->perc_q != 0)
 		ft_printsg(v);
 	while (0 < w--)
-		ft_putchar(v->a, v);
+		ft_putchar(v->b, v);
 	if (v->zero == 0 || v->perc_q == 0)
 		ft_printsg(v);
+	if (v->a == 'p')
+		ft_putstr("0x", v);
 	if (v->perc_f == 1)
 	{
 		while (p-- > 0)
@@ -65,6 +67,8 @@ void			ft_ljustify(t_key *v, int p, int w)
 		ft_printsg(v);
 		w--;
 	}
+	if (v->a == 'p')
+		ft_putstr("0x", v);
 	if (v->perc_f == 1)
 	{
 		while (p-- > 0)
@@ -75,7 +79,7 @@ void			ft_ljustify(t_key *v, int p, int w)
 	else
 		ft_res(v);
 	while (0 < w--)
-		ft_putchar(v->a, v);
+		ft_putchar(v->b, v);
 }
 
 void			ft_printnum(t_key *v)
@@ -95,9 +99,9 @@ void			ft_printnum(t_key *v)
 		if (p > 0)
 			w -= p;
 		if (v->zero == 1 && v->perc_q != 0)
-			v->a = '0';
+			v->b = '0';
 		else
-			v->a = ' ';
+			v->b = ' ';
 		if (v->ljus == 0)
 			ft_rjustify(v, p, w);
 		else
