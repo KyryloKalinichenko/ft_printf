@@ -15,7 +15,7 @@
 static int		ft_isflags(char *s)
 {
 	int			i;
-	const char	a[7] = "+ -h0#";
+	const char	a[7] = "+ -0#";
 
 	i = -1;
 	while (a[++i])
@@ -61,26 +61,26 @@ static char		*ft_width(t_key *v, va_list lst, char *s)
 	return (s);
 }
 
-char			*ft_percision(t_key *v, char *s, va_list lst)
-{
-	s = ft_printdot(++s, lst, v);
-	if (v->perc_q > 0 && *s != '%' &&
-			*s != 'c' && *s != 's')
-		v->zero = 0;
-	return (s);
-}
+#include <stdio.h>
 
-char		*ft_size(char *s, t_key *v)
+char			*ft_size(char *s, t_key *v)
 {
-	int fl;
-
-	fl = 0;
-	while (s && *s == 'h')
+	while (s && (*s == 'h' ||
+			*s == 'l'))
 	{
-		if (*s == 'h' && !fl)
+		if (*s == 'h')
 		{
-			v->sh = 1;
-			fl++;
+			if (*++s == 'h')
+				v->hh = 1;
+			else
+				v->sh = 1;
+		}
+		else if (*s == 'l')
+		{
+			if (*++s == 'l')
+				v->ll = 1;
+			else
+				v->l = 1;
 		}
 		s++;
 	}
@@ -92,11 +92,12 @@ char			*ft_percent(t_key *v, char *s, va_list lst)
 	if (!ft_isconv(v->a = *ft_skipall(s)))
 		return (NULL);
 	s = ft_flag(s, v);
+	//printf("//%c//", *s);
 	s = ft_width(v, lst, s);
 	if (*s == '.')
 		s = ft_percision(v, s, lst);
-	if (*s == 'h')
-		v->sh = 1;
+//	if (*s == 'h')
+//		v->sh = 1;
 	s = ft_size(s, v);
 	ft_itisconv(v->a, lst, v);
 	if (v->a == 's' && v->ctr != -1)

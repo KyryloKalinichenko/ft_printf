@@ -25,6 +25,7 @@ static	void	ft_res(t_key *v)
 			ft_putstr("0X", v);
 		ft_putstr(v->res, v);
 	}
+	free(v->res);
 }
 
 static void		ft_printsg(t_key *v)

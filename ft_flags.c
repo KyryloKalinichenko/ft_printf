@@ -39,6 +39,10 @@ char				*ft_printdot(char *s, va_list a, t_key *v)
 
 static void			ft_printres(t_key *v, int p, int w)
 {
+	if (v->zero)
+		v->a = '0';
+	else
+		v->a = ' ';
 	if (v->ljus)
 	{
 		if (v->perc_f == 1 && p >= 0)
@@ -46,17 +50,18 @@ static void			ft_printres(t_key *v, int p, int w)
 		else
 			ft_putstr(v->res, v);
 		while (w-- > 0)
-			ft_putchar(' ', v);
+			ft_putchar(v->a, v);
 	}
 	else
 	{
 		while (w-- > 0)
-			ft_putchar(' ', v);
+			ft_putchar(v->a, v);
 		if (v->perc_f == 1 && p >= 0)
 			ft_putstrlm(v->res, p, v);
 		else
 			ft_putstr(v->res, v);
 	}
+	free(v->res);
 }
 
 void				ft_strprint(t_key *v)
@@ -92,7 +97,13 @@ static void			ft_convunsig(t_key *v, va_list lst, char a)
 	unsigned long long i;
 
 	if (v->sh && a != 'p')
-		i = (short unsigned int)va_arg(lst, int);
+		i = (unsigned short)va_arg(lst, int);
+	else if (v->hh && a != 'p')
+		i = (unsigned char)va_arg(lst, unsigned int);
+	else if (v->l && a != 'p')
+		i = va_arg(lst, unsigned long);
+	else if (v->ll && a != 'p')
+		i = va_arg(lst, unsigned long long);
 	else if (a == 'x' || a == 'X' || a == 'u')
 		i = va_arg(lst, unsigned int);
 	else
@@ -110,6 +121,12 @@ void				ft_itisconv(char a, va_list lst, t_key *v)
 	{
 		if (v->sh)
 			*(va_arg(lst, int*)) = (short int)v->ctr;
+		else if (v->hh)
+			*(va_arg(lst, char*)) = v->ctr;
+		else if (v->l)
+			*(va_arg(lst, long*)) = v->ctr;
+		else if (v->hh)
+			*(va_arg(lst, long long*)) = v->ctr;
 		else
 			*(va_arg(lst, int*)) = v->ctr;
 	}

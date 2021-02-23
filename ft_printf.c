@@ -18,20 +18,6 @@ void	ft_putchar(char a, t_key *v)
 	v->ctr++;
 }
 
-int		ft_isflag(char *s)
-{
-	int			i;
-	const char	a[9] = "-. *0+#h";
-
-	i = -1;
-	while (a[++i])
-	{
-		if (a[i] == *s)
-			return (1);
-	}
-	return (0);
-}
-
 int		ft_isconv(const char b)
 {
 	const char	a[11] = "dincspuxX%";
@@ -49,14 +35,23 @@ int		ft_isconv(const char b)
 	return (0);
 }
 
+#include <stdio.h>
+
 void	ft_convint(t_key *v, va_list lst)
 {
 	long long i;
 
 	if (v->sh)
 		i = (short int)va_arg(lst, int);
+	else if (v->hh)
+		i = (char)va_arg(lst, int);
+	else if (v->l)
+		i = va_arg(lst, long);
+	else if (v->ll)
+		i = va_arg(lst, long long);
 	else
 		i = va_arg(lst, int);
+	//printf("---%i---", v->sh);
 	if (i < 0)
 	{
 		v->neg = 1;
@@ -102,8 +97,6 @@ int		ft_printf(const char *s, ...)
 			ft_load(v);
 			if (!(s = ft_percent(v, (char*)++s, lst)))
 				break ;
-			if (v->res)
-				free(v->res);
 		}
 		else
 			ft_putchar(*s, v);

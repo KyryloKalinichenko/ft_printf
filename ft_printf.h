@@ -34,6 +34,9 @@ typedef struct	s_key
 	int	hash;
 	int	sh;
 	int	ctr;
+	int hh;
+	int l;
+	int ll;
 
 }				t_key;
 
@@ -83,5 +86,6 @@ char			*ft_itoa_float(float n);
 char			*ft_itoa_max(unsigned long long int n, int base);
 void			ft_convint(t_key *v, va_list lst);
 void			ft_convchar(t_key *v, va_list lst, char a);
+char			*ft_percision(t_key *v, char *s, va_list lst);
 
 #endif

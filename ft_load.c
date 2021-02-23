@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_load(t_key *v)
+void			ft_load(t_key *v)
 {
 	if (v)
 	{
@@ -27,11 +27,37 @@ void	ft_load(t_key *v)
 		v->zerch = 0;
 		v->plus = 0;
 		v->hash = 0;
+		v->hh = 0;
+		v->l = 0;
+		v->ll = 0;
 		v->sh = 0;
 	}
 }
 
-char	*ft_skipnum(char *s)
+int				ft_isflag(char *s)
+{
+	int			i;
+	const char	a[9] = "-. *0+#h";
+
+	i = -1;
+	while (a[++i])
+	{
+		if (a[i] == *s)
+			return (1);
+	}
+	return (0);
+}
+
+char			*ft_percision(t_key *v, char *s, va_list lst)
+{
+	s = ft_printdot(++s, lst, v);
+	if (v->perc_q > 0 && *s != '%' &&
+			*s != 'c' && *s != 's')
+		v->zero = 0;
+	return (s);
+}
+
+char			*ft_skipnum(char *s)
 {
 	int i;
 
@@ -45,7 +71,7 @@ char	*ft_skipnum(char *s)
 	return (NULL);
 }
 
-char		*ft_printsp(char *s, va_list lst, t_key *v)
+char			*ft_printsp(char *s, va_list lst, t_key *v)
 {
 	int		i;
 

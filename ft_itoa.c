@@ -31,9 +31,9 @@ static int		ft_len(long int n, int base)
 
 char			*ft_itoa(long int n, int base)
 {
-	char		*s;
-	int			p;
-	long int	k;
+	char			*s;
+	int				p;
+	long long		k;
 
 	k = n;
 	p = ft_len(k, base);
