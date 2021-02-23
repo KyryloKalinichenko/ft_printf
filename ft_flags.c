@@ -37,7 +37,7 @@ char				*ft_printdot(char *s, va_list a, t_key *v)
 	return (s);
 }
 
-static void		ft_printres(t_key *v, int p, int w)
+static void			ft_printres(t_key *v, int p, int w)
 {
 	if (v->ljus)
 	{
@@ -59,7 +59,7 @@ static void		ft_printres(t_key *v, int p, int w)
 	}
 }
 
-void			ft_strprint(t_key *v)
+void				ft_strprint(t_key *v)
 {
 	int len;
 
@@ -85,4 +85,44 @@ void			ft_strprint(t_key *v)
 			v->width -= len;
 		ft_printres(v, v->perc_q, v->width);
 	}
+}
+
+static void			ft_convunsig(t_key *v, va_list lst, char a)
+{
+	unsigned long long i;
+
+	if (v->sh && a != 'p')
+		i = (short unsigned int)va_arg(lst, int);
+	else if (a == 'x' || a == 'X' || a == 'u')
+		i = va_arg(lst, unsigned int);
+	else
+		i = va_arg(lst, unsigned long long int);
+	ft_print_ptr(i, a, v);
+}
+
+void				ft_itisconv(char a, va_list lst, t_key *v)
+{
+	char	*s;
+
+	if (a == 'd' || a == 'i')
+		ft_convint(v, lst);
+	else if (a == 'n')
+	{
+		if (v->sh)
+			*(va_arg(lst, int*)) = (short int)v->ctr;
+		else
+			*(va_arg(lst, int*)) = v->ctr;
+	}
+	else if (a == 'c' || a == '%')
+		ft_convchar(v, lst, a);
+	else if (a == 's')
+	{
+		s = va_arg(lst, char *);
+		if (s && !(s = ft_strdup(s)))
+			v->ctr = -1;
+		else
+			v->res = s;
+	}
+	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
+		ft_convunsig(v, lst, a);
 }

@@ -69,7 +69,7 @@ int			ft_printf(const char *s, ...);
 void			ft_rjustify(t_key *v, int k, int p);
 void			ft_ljustify(t_key *v, int k, int p);
 void			ft_itisconv(char a, va_list lst, t_key *v);
-int			ft_isconv(const char *b);
+int			ft_isconv(const char b);
 void			ft_printnum(t_key *v);
 char			*ft_printdot(char *s, va_list a, t_key *v);
 char			*ft_skipall(char *s);
@@ -81,5 +81,7 @@ int			ft_isflag(char *s);
 void			ft_print_ptr(unsigned long long int addr, char a, t_key *v);
 char			*ft_itoa_float(float n);
 char			*ft_itoa_max(unsigned long long int n, int base);
+void			ft_convint(t_key *v, va_list lst);
+void			ft_convchar(t_key *v, va_list lst, char a);
 
 #endif

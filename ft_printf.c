@@ -32,7 +32,7 @@ int		ft_isflag(char *s)
 	return (0);
 }
 
-int		ft_isconv(const char *b)
+int		ft_isconv(const char b)
 {
 	const char	a[11] = "dincspuxX%";
 	int			i;
@@ -42,73 +42,45 @@ int		ft_isconv(const char *b)
 		i = -1;
 		while (a[++i])
 		{
-			if (a[i] == *b)
+			if (a[i] == b)
 				return (1);
 		}
 	}
 	return (0);
 }
 
-void	ft_itisconv(char a, va_list lst, t_key *v)
+void	ft_convint(t_key *v, va_list lst)
 {
-	long long	i;
-	char		*s;
+	long long i;
 
-	if (a == 'd' || a == 'i')
+	if (v->sh)
+		i = (short int)va_arg(lst, int);
+	else
+		i = va_arg(lst, int);
+	if (i < 0)
 	{
-		if (v->sh)
-			i = (short int)va_arg(lst, int);
-		else
-			i = va_arg(lst, int);
-		if (i < 0)
-		{
-			v->neg = 1;
-			i *= -1;
-		}
-		if (!(v->res = ft_itoa(i, 10)))
-			v->ctr = -1;
+		v->neg = 1;
+		i *= -1;
 	}
-	else if (a == 'n')
+	if (!(v->res = ft_itoa(i, 10)))
+		v->ctr = -1;
+}
+
+void	ft_convchar(t_key *v, va_list lst, char a)
+{
+	if (!(v->res = ft_calloc(2, sizeof(char))))
+		v->ctr = -1;
+	else
 	{
-		if (v->sh)
-			*(va_arg(lst, int*)) = (short int)v->ctr;
-		else
-			*(va_arg(lst, int*)) = v->ctr;
-	}
-	else if (a == 'c' || a == '%')
-	{
-		if (!(v->res = ft_calloc(2, sizeof(char))))
-			v->ctr = -1;
+		if (a == 'c')
+			a = (char)va_arg(lst, int);
 		else
 		{
-			if (a == 'c')
-				a = (char)va_arg(lst, int);
-			else
-			{
-				v->perc_f = 0;
-				v->perc_q = 1;
-			}
-			v->res[0] = a;
-			v->zerch = 1;
+			v->perc_f = 0;
+			v->perc_q = 1;
 		}
-	}
-	else if (a == 's')
-	{
-		s = va_arg(lst, char *);
-		if (s && !(s = ft_strdup(s)))
-			v->ctr = -1;
-		else
-			v->res = s;
-	}
-	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
-	{
-		if (v->sh && a != 'p')
-			i = (short unsigned int)va_arg(lst, int);
-		else if (a == 'x' || a == 'X' || a == 'u')
-			i = va_arg(lst, unsigned int);
-		else
-			i = va_arg(lst, unsigned long long int);
-		ft_print_ptr(i, a, v);
+		v->res[0] = a;
+		v->zerch = 1;
 	}
 }
 
@@ -125,10 +97,10 @@ int		ft_printf(const char *s, ...)
 	v->ctr = 0;
 	while (*s)
 	{
-		ft_load(v);
-		if (*s == '%' && ft_isconv(ft_skipall((char*)++s)))
+		if (*s == '%')
 		{
-			if (!(s = ft_percent(v, (char*)s, lst)))
+			ft_load(v);
+			if (!(s = ft_percent(v, (char*)++s, lst)))
 				break ;
 			if (v->res)
 				free(v->res);
@@ -137,7 +109,7 @@ int		ft_printf(const char *s, ...)
 			ft_putchar(*s, v);
 		s++;
 	}
-	i += v->ctr;
+	i = v->ctr;
 	free(v);
 	va_end(lst);
 	return (i);

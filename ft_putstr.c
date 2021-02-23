@@ -56,10 +56,6 @@ char	*ft_skipall(char *s)
 	{
 		while (s && (ft_isdigit(*s) || ft_isflag(s)))
 			s++;
-		if (s && ft_isconv(s))
-			return (s);
-		else
-			return (NULL);
 	}
-	return (NULL);
+	return (s);
 }

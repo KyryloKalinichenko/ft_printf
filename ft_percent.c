@@ -70,22 +70,40 @@ char			*ft_percision(t_key *v, char *s, va_list lst)
 	return (s);
 }
 
+char		*ft_size(char *s, t_key *v)
+{
+	int fl;
+
+	fl = 0;
+	while (s && *s == 'h')
+	{
+		if (*s == 'h' && !fl)
+		{
+			v->sh = 1;
+			fl++;
+		}
+		s++;
+	}
+	return (s);
+}
+
 char			*ft_percent(t_key *v, char *s, va_list lst)
 {
-	v->a = *ft_skipall(s);
+	if (!ft_isconv(v->a = *ft_skipall(s)))
+		return (NULL);
 	s = ft_flag(s, v);
 	s = ft_width(v, lst, s);
 	if (*s == '.')
 		s = ft_percision(v, s, lst);
 	if (*s == 'h')
 		v->sh = 1;
-	if (ft_isconv(s))
-		ft_itisconv(v->a, lst, v);
+	s = ft_size(s, v);
+	ft_itisconv(v->a, lst, v);
 	if (v->a == 's' && v->ctr != -1)
 		ft_strprint(v);
 	else if (v->ctr != -1)
 		ft_printnum(v);
 	if (v->ctr == -1)
 		return (NULL);
-	return (ft_skipall(s));
+	return (s);
 }
