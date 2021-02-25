@@ -38,6 +38,8 @@ SRC = 		ft_atoi.c \
 		ft_putstr.c \
 		ft_print_ptr.c \
 		ft_itoa_max.c \
+		ft_skip.c \
+		ft_parcing_conv.c \
 		ft_printnum.c
 
 OBJ = $(SRC:.c=.o)
@@ -56,6 +58,8 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+
+bonus: all
 
 re: fclean all
 

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void			ft_load(t_key *v)
+void		ft_load(t_key *v)
 {
 	if (v)
 	{
@@ -34,10 +34,27 @@ void			ft_load(t_key *v)
 	}
 }
 
-int				ft_isflag(char *s)
+int			ft_isconv(const char b)
+{
+	const char	a[11] = "dincspuxX%";
+	int			i;
+
+	if (b)
+	{
+		i = -1;
+		while (a[++i])
+		{
+			if (a[i] == b)
+				return (1);
+		}
+	}
+	return (0);
+}
+
+int			ft_isforpar(char *s)
 {
 	int			i;
-	const char	a[9] = "-. *0+#h";
+	const char	a[10] = "-. *0+#hl";
 
 	i = -1;
 	while (a[++i])
@@ -48,47 +65,16 @@ int				ft_isflag(char *s)
 	return (0);
 }
 
-char			*ft_percision(t_key *v, char *s, va_list lst)
+int			ft_isflags(char *s)
 {
-	s = ft_printdot(++s, lst, v);
-	if (v->perc_q > 0 && *s != '%' &&
-			*s != 'c' && *s != 's')
-		v->zero = 0;
-	return (s);
-}
-
-char			*ft_skipnum(char *s)
-{
-	int i;
+	int			i;
+	const char	a[7] = "+ -0#";
 
 	i = -1;
-	if (s)
+	while (a[++i])
 	{
-		while (ft_isdigit(s[++i]))
-			;
-		return (&s[i]);
+		if (a[i] == *s)
+			return (1);
 	}
-	return (NULL);
-}
-
-char			*ft_printsp(char *s, va_list lst, t_key *v)
-{
-	int		i;
-
-	i = 0;
-	if (s && ft_isdigit(*s))
-	{
-		while (*s >= '0' && *s <= '9')
-		{
-			i = i * 10 + *s - '0';
-			s++;
-		}
-	}
-	else if (s && *s == '*')
-	{
-		i = va_arg(lst, int);
-		s++;
-	}
-	v->width = i;
-	return (s);
+	return (0);
 }

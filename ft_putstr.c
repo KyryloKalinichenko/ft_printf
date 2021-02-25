@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_putstr(const char *str, t_key *v)
+void			ft_putstr(const char *str, t_key *v)
 {
 	int i;
 
@@ -24,7 +24,7 @@ void	ft_putstr(const char *str, t_key *v)
 	}
 }
 
-void	ft_putstrlm(const char *str, int lm, t_key *v)
+void			ft_putstrlm(const char *str, int lm, t_key *v)
 {
 	int i;
 
@@ -36,26 +36,57 @@ void	ft_putstrlm(const char *str, int lm, t_key *v)
 	}
 }
 
-char	*ft_skipf(char *s)
+void			ft_printres(t_key *v, int p, int w)
 {
-	while (s && ft_isflag(s))
-		s++;
-	return (s);
-}
-
-char	*ft_skipstar(char *s)
-{
-	if (s && *s == '*')
-		s++;
-	return (s);
-}
-
-char	*ft_skipall(char *s)
-{
-	if (s)
+	if (v->zero)
+		v->a = '0';
+	else
+		v->a = ' ';
+	if (v->ljus)
 	{
-		while (s && (ft_isdigit(*s) || ft_isflag(s)))
-			s++;
+		if (v->perc_f == 1 && p >= 0)
+			ft_putstrlm(v->res, p, v);
+		else
+			ft_putstr(v->res, v);
+		while (w-- > 0)
+			ft_putchar(v->a, v);
 	}
-	return (s);
+	else
+	{
+		while (w-- > 0)
+			ft_putchar(v->a, v);
+		if (v->perc_f == 1 && p >= 0)
+			ft_putstrlm(v->res, p, v);
+		else
+			ft_putstr(v->res, v);
+	}
+	free(v->res);
+}
+
+void			ft_strprint(t_key *v)
+{
+	int len;
+
+	if (v)
+	{
+		if (!v->res)
+		{
+			if (!(v->res = ft_strdup("(null)")))
+			{
+				v->ctr = -1;
+				return ;
+			}
+		}
+		len = ft_strlen(v->res);
+		if (v->perc_f == 1 && v->perc_q > 0)
+		{
+			if (v->perc_q <= len)
+				v->width -= v->perc_q;
+			else if (len < v->perc_q)
+				v->width -= len;
+		}
+		else if (v->perc_f == 0 || v->perc_q < 0)
+			v->width -= len;
+		ft_printres(v, v->perc_q, v->width);
+	}
 }

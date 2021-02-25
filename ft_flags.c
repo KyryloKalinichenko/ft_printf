@@ -37,109 +37,71 @@ char				*ft_printdot(char *s, va_list a, t_key *v)
 	return (s);
 }
 
-static void			ft_printres(t_key *v, int p, int w)
+char				*ft_printsp(char *s, va_list lst, t_key *v)
 {
-	if (v->zero)
-		v->a = '0';
-	else
-		v->a = ' ';
+	int		i;
+
+	i = 0;
+	if (s && ft_isdigit(*s))
+	{
+		while (*s >= '0' && *s <= '9')
+		{
+			i = i * 10 + *s - '0';
+			s++;
+		}
+	}
+	else if (s && *s == '*')
+	{
+		i = va_arg(lst, int);
+		s++;
+	}
+	v->width = i;
+	return (s);
+}
+
+char				*ft_size(char *s, t_key *v)
+{
+	while (s && (*s == 'h' ||
+			*s == 'l'))
+	{
+		if (*s == 'h')
+		{
+			if (*++s == 'h')
+				v->hh = 1;
+			else
+				v->sh = 1;
+		}
+		else if (*s == 'l')
+		{
+			if (*++s == 'l')
+				v->ll = 1;
+			else
+				v->l = 1;
+		}
+		s++;
+	}
+	return (s);
+}
+
+char				*ft_flag(char *s, t_key *v)
+{
+	while (s && ft_isflags(s))
+	{
+		if (*s == '+' && !v->plus)
+			v->plus = 1;
+		else if (*s == '#')
+			v->hash = 1;
+		else if (*s == ' ' && !v->space)
+			v->space = 1;
+		else if (*s == '-' && !v->ljus)
+			v->ljus = 1;
+		else if (*s == '0' && !v->ljus)
+			v->zero = 1;
+		s++;
+	}
+	if (v->plus)
+		v->space = 0;
 	if (v->ljus)
-	{
-		if (v->perc_f == 1 && p >= 0)
-			ft_putstrlm(v->res, p, v);
-		else
-			ft_putstr(v->res, v);
-		while (w-- > 0)
-			ft_putchar(v->a, v);
-	}
-	else
-	{
-		while (w-- > 0)
-			ft_putchar(v->a, v);
-		if (v->perc_f == 1 && p >= 0)
-			ft_putstrlm(v->res, p, v);
-		else
-			ft_putstr(v->res, v);
-	}
-	free(v->res);
-}
-
-void				ft_strprint(t_key *v)
-{
-	int len;
-
-	if (v)
-	{
-		if (!v->res)
-		{
-			if (!(v->res = ft_strdup("(null)")))
-			{
-				v->ctr = -1;
-				return ;
-			}
-		}
-		len = ft_strlen(v->res);
-		if (v->perc_f == 1 && v->perc_q > 0)
-		{
-			if (v->perc_q <= len)
-				v->width -= v->perc_q;
-			else if (len < v->perc_q)
-				v->width -= len;
-		}
-		else if (v->perc_f == 0 || v->perc_q < 0)
-			v->width -= len;
-		ft_printres(v, v->perc_q, v->width);
-	}
-}
-
-static void			ft_convunsig(t_key *v, va_list lst, char a)
-{
-	unsigned long long i;
-
-	if (v->sh && a != 'p')
-		i = (unsigned short)va_arg(lst, int);
-	else if (v->hh && a != 'p')
-		i = (unsigned char)va_arg(lst, unsigned int);
-	else if (v->l && a != 'p')
-		i = va_arg(lst, unsigned long);
-	else if (v->ll && a != 'p')
-		i = va_arg(lst, unsigned long long);
-	else if (a == 'x' || a == 'X' || a == 'u')
-		i = va_arg(lst, unsigned int);
-	else
-		i = va_arg(lst, unsigned long long int);
-	ft_print_ptr(i, a, v);
-}
-
-void				ft_itisconv(char a, va_list lst, t_key *v)
-{
-	char	*s;
-
-	if (a == 'd' || a == 'i')
-		ft_convint(v, lst);
-	else if (a == 'n')
-	{
-		if (v->sh)
-			*(va_arg(lst, int*)) = (short int)v->ctr;
-		else if (v->hh)
-			*(va_arg(lst, char*)) = v->ctr;
-		else if (v->l)
-			*(va_arg(lst, long*)) = v->ctr;
-		else if (v->hh)
-			*(va_arg(lst, long long*)) = v->ctr;
-		else
-			*(va_arg(lst, int*)) = v->ctr;
-	}
-	else if (a == 'c' || a == '%')
-		ft_convchar(v, lst, a);
-	else if (a == 's')
-	{
-		s = va_arg(lst, char *);
-		if (s && !(s = ft_strdup(s)))
-			v->ctr = -1;
-		else
-			v->res = s;
-	}
-	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
-		ft_convunsig(v, lst, a);
+		v->zero = 0;
+	return (s);
 }
