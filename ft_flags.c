@@ -64,20 +64,20 @@ char				*ft_size(char *s, t_key *v)
 	while (s && (*s == 'h' ||
 			*s == 'l'))
 	{
-		if (*s == 'h')
-		{
-			if (*++s == 'h')
+		if (*s == 'h' && v->sh)
+			{
+				v->sh = 0;
 				v->hh = 1;
-			else
-				v->sh = 1;
+			}
+		else if (*s == 'h')
+			v->sh = 1;
+		if (*s == 'l' && v->l)
+		{
+			v->l = 0;
+			v->ll = 1;
 		}
 		else if (*s == 'l')
-		{
-			if (*++s == 'l')
-				v->ll = 1;
-			else
-				v->l = 1;
-		}
+			v->l = 1;
 		s++;
 	}
 	return (s);

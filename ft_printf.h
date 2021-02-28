@@ -97,5 +97,8 @@ void					ft_convn(t_key *v, va_list lst);
 void					ft_convunsig(t_key *v, va_list lst, char a);
 char					*ft_flag(char *s, t_key *v);
 char					*ft_size(char *s, t_key *v);
+void					ft_putwchar(t_key *v);
+int						ft_wchar_to_mb(char *buffer, wchar_t code_point);
+int						ft_wchar_to_mb_part_2(char *buffer, wchar_t code_point);
 
 #endif

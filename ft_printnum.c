@@ -15,8 +15,10 @@
 
 static	void	ft_res(t_key *v)
 {
-	if (v->zerch)
+	if (v->zerch && !v->l)
 		ft_putchar(v->res[0], v);
+	else if (v->zerch && v->l)
+		ft_putwchar(v);
 	else
 	{
 		if (v->res && v->a == 'x' && v->hash)

@@ -37,9 +37,9 @@ void			ft_convint(t_key *v, va_list lst)
 
 void			ft_convchar(t_key *v, va_list lst, char a)
 {
-	if (!(v->res = ft_calloc(2, sizeof(char))))
+	if (!(v->res = ft_calloc(4, sizeof(char))))
 		v->ctr = -1;
-	else
+	else if (!v->l)
 	{
 		if (a == 'c')
 			a = (char)va_arg(lst, int);
@@ -50,6 +50,12 @@ void			ft_convchar(t_key *v, va_list lst, char a)
 		}
 		v->res[0] = a;
 		v->zerch = 1;
+	}
+	else
+	{
+		v->l = va_arg(lst, wchar_t);
+		if (!(v->l = ft_wchar_to_mb(v->res, v->l)))
+			v->ctr = -1;
 	}
 }
 

@@ -18,6 +18,15 @@ void	ft_putchar(char a, t_key *v)
 	v->ctr++;
 }
 
+void	ft_putwchar(t_key *v)
+{
+	if (v->res && v->l)
+	{
+		write(1, v->res, v->l);
+		v->ctr++;
+	}
+}
+
 int		ft_printf(const char *s, ...)
 {
 	va_list	lst;

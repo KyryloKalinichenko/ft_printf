@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 SRC = 		ft_atoi.c \
 		ft_isdigit.c \
@@ -40,6 +40,7 @@ SRC = 		ft_atoi.c \
 		ft_itoa_max.c \
 		ft_skip.c \
 		ft_parcing_conv.c \
+		ft_wchar.c \
 		ft_printnum.c
 
 OBJ = $(SRC:.c=.o)
