@@ -8,29 +8,23 @@
 
 int main(void)
 {
-	long long int h;
+	unsigned long long int h;
 	char i[4];
 	int p;
 
-	h = UCHAR_MAX;
+	h = ULONG_MAX + 1;
 	p = 5;
 
 	setlocale(LC_ALL, "");
 
-
-
+	/*TEST(15, print(" %#-03.2x ", 1));
+	TEST(16, print(" %#-03.*x ", 2, 1));
+*/
 	//printf("%s", ft_itoa(h, 2));
-
-
-
-	//while(h < INT32_MIN - 1)
-	//{
-		   printf(" NUM ORIG:%i ",    printf("SYMBOL :%-.d", 0));
-		   printf("\n-----------\n");
-		ft_printf(" NUM     :%i ", ft_printf("SYMBOL :%-.d", 0));
-		printf("\n-----------\n");
-	//	h++;
-	//}
-	//ft_printf("%i", sizeof(h));
+	printf(" %x ", h);
+	printf("\n---------\n");
+	ft_printf(" %x ", h );
+	
+	
 
 }

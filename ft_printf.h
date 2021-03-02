@@ -60,7 +60,7 @@ int						ft_toupper(int c);
 char					*ft_substr(char const *s, unsigned int start,
 	size_t len);
 char					*ft_strjoin(char const *s1, char const *s2);
-char					*ft_itoa(long int n, int base);
+char					*ft_itoa(long long n, int base);
 void					ft_putchar(char c, t_key *v);
 void					ft_putstr(char const *s, t_key *v);
 void					ft_putstrlm(char const *s, int lm, t_key *v);

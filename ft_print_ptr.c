@@ -45,12 +45,12 @@ void			ft_print_ptr(unsigned long long int addr, char a, t_key *v)
 		ft_p(v, addr);
 	else if (a == 'u')
 	{
-		if (!(v->res = ft_itoa(addr, 10)))
+		if (!(v->res = ft_itoa_max(addr, 10)))
 			v->ctr = -1;
 	}
 	else if (a == 'X' || a == 'x')
 	{
-		if ((s = ft_itoa(addr, 16)))
+		if ((s = ft_itoa_max(addr, 16)))
 			ft_reg(a, s);
 		else
 			v->ctr = -1;

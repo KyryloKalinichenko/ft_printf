@@ -12,29 +12,55 @@
 
 #include "ft_printf.h"
 
-static int		ft_len(long int n, int base)
+static int		ft_len(long long n, int base)
 {
 	long int k;
-	long int p;
 
-	k = 1;
-	p = 0;
+	k = 0;
 	if (n == 0)
 		return (1);
-	while (n > (base - 1))
+	if (n > 0)
 	{
-		n /= base;
+		while (n > (base - 1))
+		{
+			n /= base;
+			k++;
+		}
 		k++;
 	}
-	return (k + p);
+	else
+	{
+		while (n < ((base - 1) * -1))
+		{
+			n /= base;
+			k++;
+		}
+	}	
+	return (k);
 }
 
-char			*ft_itoa(long int n, int base)
+char			*ft_sign(char *s, long long n, int len)
+{
+	while (n <= -10)
+	{
+		if ((n % 10) >= -10)
+			s[len--] = (((n % 10) * -1) + 48);
+		n /= 10;
+	}
+	s[len--] = (n % 10) * -1 + '0';
+	return (s);
+}
+
+char			*ft_itoa(long long n, int base)
 {
 	char			*s;
 	int				p;
 	long long		k;
+	int				sign;
 
+	sign = 0;
+	if (n < 0)
+		sign = -1;
 	k = n;
 	p = ft_len(k, base);
 	s = malloc(sizeof(char) * (p + 1));
@@ -43,6 +69,8 @@ char			*ft_itoa(long int n, int base)
 	s[p] = '\0';
 	if (k == 0)
 		s[0] = '0';
+	if (sign == -1)
+		return (ft_sign(s, n , p));
 	while (k > 0)
 	{
 		p--;

@@ -21,7 +21,7 @@ void			ft_convint(t_key *v, va_list lst)
 	else if (v->hh)
 		i = (char)va_arg(lst, int);
 	else if (v->l)
-		i = va_arg(lst, long);
+		i = (long)va_arg(lst, long long);
 	else if (v->ll)
 		i = va_arg(lst, long long);
 	else
@@ -81,11 +81,13 @@ void			ft_convunsig(t_key *v, va_list lst, char a)
 void			ft_convn(t_key *v, va_list lst)
 {
 	if (v->sh)
-		*(va_arg(lst, int*)) = (short int)v->ctr;
+		*(va_arg(lst, short int*)) = (short int)v->ctr;
 	else if (v->hh)
 		*(va_arg(lst, char*)) = v->ctr;
 	else if (v->l)
 		*(va_arg(lst, long*)) = v->ctr;
+	else if (v->ll)
+		*(va_arg(lst, long long*)) = v->ctr;
 	else if (v->hh)
 		*(va_arg(lst, long long*)) = v->ctr;
 	else

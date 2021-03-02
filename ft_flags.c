@@ -65,10 +65,10 @@ char				*ft_size(char *s, t_key *v)
 			*s == 'l'))
 	{
 		if (*s == 'h' && v->sh)
-			{
-				v->sh = 0;
-				v->hh = 1;
-			}
+		{
+			v->sh = 0;
+			v->hh = 1;
+		}
 		else if (*s == 'h')
 			v->sh = 1;
 		if (*s == 'l' && v->l)

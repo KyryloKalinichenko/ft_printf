@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static	void	ft_res(t_key *v)
 {
@@ -20,13 +19,7 @@ static	void	ft_res(t_key *v)
 	else if (v->zerch && v->l)
 		ft_putwchar(v);
 	else
-	{
-		if (v->res && v->a == 'x' && v->hash)
-			ft_putstr("0x", v);
-		else if (v->res && v->a == 'X' && v->hash)
-			ft_putstr("0X", v);
 		ft_putstr(v->res, v);
-	}
 	free(v->res);
 }
 
@@ -42,10 +35,14 @@ static void		ft_printsg(t_key *v)
 
 void			ft_rjustify(t_key *v, int p, int w)
 {
-	if (v->neg == 1)
+	if (v->neg == 1 || v->space || v->plus)
 		w--;
 	if (v->zero == 1 && v->perc_q != 0)
 		ft_printsg(v);
+	if (0 != ft_strcmp("0", v->res) && v->a == 'x' && v->hash)
+		ft_putstr("0x", v);
+	else if (0 != ft_strcmp("0", v->res) && v->a == 'X' && v->hash)
+		ft_putstr("0X", v);
 	while (0 < w--)
 		ft_putchar(v->b, v);
 	if (v->zero == 0 || v->perc_q == 0)
@@ -58,6 +55,8 @@ void			ft_rjustify(t_key *v, int p, int w)
 			ft_putchar('0', v);
 		if (0 != ft_strcmp("0", v->res) || v->perc_q != 0)
 			ft_res(v);
+		else
+			free(v->res);
 	}
 	else
 		ft_res(v);
@@ -65,19 +64,25 @@ void			ft_rjustify(t_key *v, int p, int w)
 
 void			ft_ljustify(t_key *v, int p, int w)
 {
-	if (v->neg || v->plus)
+	if (v->neg || v->plus || v->space)
 	{
 		ft_printsg(v);
 		w--;
 	}
 	if (v->a == 'p')
 		ft_putstr("0x", v);
+	if (0 != ft_strcmp("0", v->res) && v->a == 'x' && v->hash)
+		ft_putstr("0x", v);
+	else if (0 != ft_strcmp("0", v->res) && v->a == 'X' && v->hash)
+		ft_putstr("0X", v);
 	if (v->perc_f == 1)
 	{
 		while (p-- > 0)
 			ft_putchar('0', v);
 		if (0 != ft_strcmp("0", v->res) || v->perc_q != 0)
 			ft_res(v);
+		else
+			free(v->res);
 	}
 	else
 		ft_res(v);
@@ -94,6 +99,8 @@ void			ft_printnum(t_key *v)
 	if (v)
 	{
 		len = ft_strlen(v->res);
+		if (v->hash && (v->a == 'x' || v->a == 'X') && ft_strcmp("0", v->res))
+			v->width -= 2;
 		p = v->perc_q - len;
 		if (v->perc_q == 0 && !ft_strcmp("0", v->res))
 			w = v->width;

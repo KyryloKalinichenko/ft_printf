@@ -65,6 +65,8 @@ char		*ft_percent(t_key *v, char *s, va_list lst)
 		s = ft_percision(v, s, lst);
 	s = ft_size(s, v);
 	ft_itisconv(v->a, lst, v);
+	if (v->a == 'n')
+		return (s);
 	if (v->a == 's' && v->ctr != -1)
 		ft_strprint(v);
 	else if (v->ctr != -1)
