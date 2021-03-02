@@ -16,7 +16,7 @@ static int		ft_len(long long n, int base)
 {
 	long int k;
 
-	k = 0;
+	k = 1;
 	if (n == 0)
 		return (1);
 	if (n > 0)
@@ -26,7 +26,6 @@ static int		ft_len(long long n, int base)
 			n /= base;
 			k++;
 		}
-		k++;
 	}
 	else
 	{
@@ -35,7 +34,8 @@ static int		ft_len(long long n, int base)
 			n /= base;
 			k++;
 		}
-	}	
+		k--;
+	}
 	return (k);
 }
 
@@ -51,26 +51,19 @@ char			*ft_sign(char *s, long long n, int len)
 	return (s);
 }
 
-char			*ft_itoa(long long n, int base)
+char			*ft_itoa(long long k, int base)
 {
 	char			*s;
 	int				p;
-	long long		k;
-	int				sign;
 
-	sign = 0;
-	if (n < 0)
-		sign = -1;
-	k = n;
 	p = ft_len(k, base);
-	s = malloc(sizeof(char) * (p + 1));
-	if (s == NULL)
+	if (!(s = malloc(sizeof(char) * (p + 1))))
 		return (NULL);
 	s[p] = '\0';
 	if (k == 0)
 		s[0] = '0';
-	if (sign == -1)
-		return (ft_sign(s, n , p));
+	if (k < 0)
+		return (ft_sign(s, k, p));
 	while (k > 0)
 	{
 		p--;

@@ -45,11 +45,16 @@ void		ft_itisconv(char a, va_list lst, t_key *v)
 		ft_convchar(v, lst, a);
 	else if (a == 's')
 	{
-		s = va_arg(lst, char *);
-		if (s && !(s = ft_strdup(s)))
-			v->ctr = -1;
+		if (v->l)
+			ft_wchar_str(va_arg(lst, wchar_t *), v);
 		else
-			v->res = s;
+		{
+			s = va_arg(lst, char *);
+			if (s && !(s = ft_strdup(s)))
+				v->ctr = -1;
+			else
+				v->res = s;
+		}
 	}
 	else if (a == 'x' || a == 'X' || a == 'u' || a == 'p')
 		ft_convunsig(v, lst, a);
@@ -67,9 +72,9 @@ char		*ft_percent(t_key *v, char *s, va_list lst)
 	ft_itisconv(v->a, lst, v);
 	if (v->a == 'n')
 		return (s);
-	if (v->a == 's' && v->ctr != -1)
+	if (v->a == 's' && v->ctr != -1 && !v->l)
 		ft_strprint(v);
-	else if (v->ctr != -1)
+	else if (v->ctr != -1 && v->a != 's')
 		ft_printnum(v);
 	if (v->ctr == -1)
 		return (NULL);
